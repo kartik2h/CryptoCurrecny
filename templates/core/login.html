@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Login</title>
+ <link rel="stylesheet" type="text/css" href="{% static 'css/style1.css' %}">
+</head>
+<body>
+<div class="container">
+        <div class="login_form_container">
+					<form method="POST" action="">
+						{% csrf_token %}
+                        <h2><center>LOGIN</center></h2>
+                         <div class="form-field">
+                             <label for="text">Username</label>
+                                 <input type="text" name="username" placeholder="Username..." class="form-control">
+
+                         </div>
+
+             <div class="form-field">
+                <label for="password">Password</label>
+                     <input type="password" name="password" placeholder="Password..." class="form-control" >
+
+             </div>
+<br>
+				 				<button type="submit">LOGIN</button>
+
+
+
+				{% for message in messages %}
+					<p id="messages">{{message}}</p>
+				{% endfor %}
+
+<br>
+					<div class="sign_up">
+						Don't have an account? <a href="{% url 'register' %}">SIGN UP</a>
+					</div>
+                    </form>
+				</div>
+			</div>
+		</div>
+
+</body>
+
+</html>

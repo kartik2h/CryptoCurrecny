@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style1.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="form_container">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                 <h2><center>SIGN UP</center></h2>
+                <div class="form-field">
+                    <label for="{{ user_form.username.id_for_label }}">Username:</label>
+                    {{ user_form.username }}
+                </div>
+                <div class="form-field">
+                    <label for="{{ user_form.email.id_for_label }}">Email address:</label>
+                    {{ user_form.email }}
+                </div>
+                <div class="form-field">
+                    <label for="{{ user_form.password1.id_for_label }}">Password:</label>
+                    {{ user_form.password1 }}
+                </div>
+                <div class="form-field">
+                    <label for="{{ user_form.password2.id_for_label }}">Confirm Password:</label>
+                    {{ user_form.password2 }}
+                </div>
+                <div class="form-field">
+                    <label for="{{ profile_form.profile_pic.id_for_label }}">Upload Profile Picture</label>
+                    {{ profile_form.profile_pic }}
+                </div>
+              <button type="submit" class="register-button">SIGN UP</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
