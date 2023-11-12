@@ -1,0 +1,258 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block content %}
+   <div id="home" class="banner-area section-padding" style="position: relative;">
+    <video id="background-video" loop autoplay muted style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; object-fit: cover;">
+        <source src="{% static 'Background_Video.mp4' %}" type="video/mp4">
+        <!-- You can add multiple source elements for different video formats (e.g., WebM, Ogg) -->
+    </video>
+       <div class="bg-overlay" style="background-color: rgba(0, 0, 0, 0.5); position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="welcome-text">
+                    <div class="name-area wow fadeInDown" data-wow-delay="0.2s">
+                        <h1 id="highlightText"></h1>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <style>
+        /* Add your CSS styles here */
+        #home {
+            background-color: rgba(0, 0, 0, 0.5); /* Adjust the alpha value for background opacity */
+        }
+
+        #highlightText {
+            color: #fff; /* Change the text color for visibility */
+        }
+
+        /* Add more styles as needed */
+    </style>
+
+    <script>
+        var sentences = [
+            "Welcome to the Crypto World!!",
+            "Trade with Confidence, Trade with Us"
+        ];
+        var element = document.getElementById("highlightText");
+        var sentenceIndex = 0;
+        var wordIndex = 0;
+
+        function updateText() {
+            if (sentenceIndex < sentences.length) {
+                var words = sentences[sentenceIndex].split(" ");
+                if (wordIndex < words.length) {
+                    element.textContent = words.slice(0, wordIndex + 1).join(" ");
+                    wordIndex++;
+                } else {
+                    setTimeout(function () {
+                        sentenceIndex++;
+                        wordIndex = 0;
+                    }, 500); // Delay for 1 second before moving to the next sentence
+                }
+            } else {
+                element.textContent = "";
+                sentenceIndex = 0;
+            }
+        }
+
+        // Call the function to start the animation
+        setInterval(updateText, 250); // Change word every 500 milliseconds (0.5 second)
+    </script>
+    {#    About section#}
+
+    <style>
+    .input-panel {
+        background-color: #f5f5f5;
+        padding: 40px;
+        height: 400px; /* Increase the height to your desired value */
+    }
+</style>
+
+<div id="about" class="about-area section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 col-sn-8 col-xs-12 wow fadeInLeft" data-wow-delay="0.2s">
+                <div class="about-left">
+                    <h2 class="section-title">EXCHANGE YOUR COIN HERE</h2>
+                    <div class="line"></div>
+                    <h4>{{ about.short_description }}</h4>
+                    <p>{{ about.description }}</p>
+                </div>
+            </div>
+            <div class="col-md-5 visible-md visible-lg wow fadeInDown" data-wow-delay="0.6s">
+                <div class="profile">
+                    ---------------------
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add a larger panel for user input (a form) -->
+<div class="input-panel">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <form>
+                    <div class="form-group">
+                        <!--<label for="coinAmount">Enter the amount of coins:</label>-->
+                       <!-- <input type="text" class="form-control" id="coinAmount" name="coinAmount">-->
+                    </div>
+                    <!--<button type="submit" class="btn btn-primary">Submit</button>-->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    {#    Services Section#}
+    <div id="services" class="section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-header text-center">
+                        <h2>Services WE offer</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for service in services %}
+
+                    <div class="col-md-4 col-sm-4">
+                        <div class="single-service wow fadeInDown" data-wow-delay="0.2s">
+                            <i class="icon icon-wallet"></i>
+                            <h2>{{ service.name }}</h2>
+                            <p>{{ service.description }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {#    Recent Works Section#}
+    <div id="portfolio" class="portfolio-area section-padding">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-header">
+                        <h2>My Recent Works</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for work in works %}
+                    <div class="col-md-4 col-sm-4 col-xs-12 no-padding">
+                        <div class="gallery-items">
+                            <a class="view img" href="{{ work.image.url }}">
+                                <img src="{{ work.image.url }}" alt="work image">
+                            </a>
+
+                            <div class="gallery-text">
+                                <h2>{{ work.title }}</h2>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+
+   <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <style>
+        /* Style for the contact information */
+        .contact-info {
+            background: #f0f0f0; /* Background color */
+            padding: 15px; /* Padding */
+            text-align: center; /* Center-align text */
+            border: 1px solid #ccc; /* Add a border for separation */
+            margin-top: 20px; /* Add some space between ABOUT US and contact info */
+        }
+
+        /* Style for the email link */
+        .contact-info a {
+            color: #007bff; /* Change the link color to blue */
+            text-decoration: none; /* Remove underlines from links */
+        }
+
+        /* Style for social media icons */
+        .social-icons {
+            margin-top: 10px;
+        }
+
+        .social-icons a {
+            margin-right: 10px; /* Add spacing between icons */
+        }
+    </style>
+</head>
+<body>
+    <div id="contact" class="contact-area section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-header text-center">
+                    <h2>ABOUT US</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2 box-contact-form">
+                <div id="about-container"></div>
+                <div id="contact-container" class="contact-info">
+                    <p>Contact us at - <a href="mailto:cryptosphereinnovators@outlook.com">cryptosphereinnovators@outlook.com</a></p>
+                    <div class="social-icons">
+                        <a href="https://www.whatsapp.com" target="_blank"><img src="{% static 'whatsapp.png' %}" alt="WhatsApp" style="width: 30px; height: 30px; margin-right: 40px;"></a>
+                        <a href="https://www.facebook.com" target="_blank"><img src="{% static 'facebook.png' %}" alt="Facebook" style="width: 30px; height: 30px; margin-right: 40px;"></a>
+                        <a href="https://twitter.com" target="_blank"><img src="{% static 'twitter.png' %}" alt="Twitter" style="width: 30px; height: 30px; margin-right: 40px;"></a>
+                        <a href="https://www.linkedin.com" target="_blank"><img src="{% static 'linkedin.png' %}" alt="LinkedIn" style="width: 30px; height: 30px;"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>
+    <script>
+        // JavaScript to create and style the container for ABOUT US
+        document.addEventListener("DOMContentLoaded", function () {
+            // Select the ABOUT US container element
+            var aboutContainer = document.getElementById("about-container");
+
+            // Set the ABOUT US container's styles
+            aboutContainer.style.background = "#f9f9f9"; // Background color
+            aboutContainer.style.padding = "20px"; // Padding
+            aboutContainer.style.textAlign = "justify"; // Justify text
+
+            // Add the ABOUT US information to the container
+            aboutContainer.innerHTML = `
+                <p>Welcome to CryptoSphere, your gateway to a world of digital financial possibilities. CryptoSphere is a state-of-the-art cryptocurrency exchange designed to empower users to trade, invest, and transact with confidence in the dynamic realm of blockchain and digital assets. With our user-friendly interface, robust security features, and a wide range of supported cryptocurrencies, we aim to make cryptocurrency trading accessible, secure, and rewarding. Join us in shaping the future of finance.</p>
+            `;
+        });
+    </script>
+</body>
+</html>
+
+
+{% endblock %}
