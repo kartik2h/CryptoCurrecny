@@ -84,3 +84,10 @@ def index(request):
         profile_pic = None
 
     return render(request, 'core/home1.html', {'profile_pic': profile_pic})
+
+
+def blockchain(request):
+    return render(request, 'core/blockchain.html')
+
+def Markettrends(request):
+    return render(request, 'core/Markettrends.html')
