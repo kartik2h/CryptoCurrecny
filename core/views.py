@@ -12,6 +12,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
 from .forms import CreateUserForm, UserProfileForm
+from core import services
+from .models import Cryptocurrency
 
 
 def home_view(request):
@@ -91,3 +93,43 @@ def blockchain(request):
 
 def Markettrends(request):
     return render(request, 'core/Markettrends.html')
+
+def index(request):
+    selected_currency = request.GET.get('currency', 'USD')
+
+    # Fetch cryptocurrency data in the selected currency
+    cryptos = services.get_cryptocurrency_data(currency=selected_currency)
+
+    # Pass the list of cryptocurrencies to the template
+    return render(request, 'core/home.html', {'cryptos': cryptos})
+
+def crypto_detail(request, symbol):
+    # Here you can fetch detailed data based on the symbol
+    #detailed_data = get_detailed_data(symbol)  # Implement this function
+
+    selected_currency = request.GET.get('currency', 'USD')
+    crypto_data = services.get_cryptocurrency_data(selected_currency)
+    data = next((item for item in crypto_data if item.symbol == symbol), None)
+
+    if not data:
+        return render(request, 'core/crypto_detail.html', {
+            'error': 'Chart data is not available.',
+            'selected_currency': selected_currency
+        })
+    chart_path = services.get_crypto_chart(symbol, data,selected_currency)
+    market_cap_chart_path = services.getsupply_chart(symbol, data,selected_currency)
+
+    # Check if the charts are generated and pass them to the template
+    if chart_path and market_cap_chart_path:
+        return render(request, 'core/crypto_detail.html', {
+            'chart_path': chart_path,
+            'market_cap_chart_path': market_cap_chart_path,
+            'selected_currency': selected_currency
+            # 'data': detailed_data  # Add or modify as needed
+        })
+    else:
+        return render(request, 'core/crypto_detail.html', {
+            'error': 'Chart data is not available.',
+            'selected_currency': selected_currency
+        })
+
