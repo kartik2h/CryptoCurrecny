@@ -77,22 +77,13 @@ def logoutView(request):
     return redirect('home')
 
 
-@login_required
-def index(request):
-    try:
-        user_profile = UserProfile.objects.get(user=request.user)
-        profile_pic = user_profile.profile_pic
-    except UserProfile.DoesNotExist:
-        profile_pic = None
-
-    return render(request, 'core/home1.html', {'profile_pic': profile_pic})
-
-
 def blockchain(request):
     return render(request, 'core/blockchain.html')
 
+
 def Markettrends(request):
     return render(request, 'core/Markettrends.html')
+
 
 def index(request):
     selected_currency = request.GET.get('currency', 'USD')
@@ -100,12 +91,20 @@ def index(request):
     # Fetch cryptocurrency data in the selected currency
     cryptos = services.get_cryptocurrency_data(currency=selected_currency)
 
+    try:
+        user_profile = UserProfile.objects.get(user=request.user)
+        profile_pic = user_profile.profile_pic
+    except UserProfile.DoesNotExist:
+        profile_pic = None
+
     # Pass the list of cryptocurrencies to the template
-    return render(request, 'core/home.html', {'cryptos': cryptos})
+    return render(request, 'core/home1.html', {'cryptos': cryptos,
+                                               'profile_pic': profile_pic})
+
 
 def crypto_detail(request, symbol):
     # Here you can fetch detailed data based on the symbol
-    #detailed_data = get_detailed_data(symbol)  # Implement this function
+    # detailed_data = get_detailed_data(symbol)  # Implement this function
 
     selected_currency = request.GET.get('currency', 'USD')
     crypto_data = services.get_cryptocurrency_data(selected_currency)
@@ -116,8 +115,8 @@ def crypto_detail(request, symbol):
             'error': 'Chart data is not available.',
             'selected_currency': selected_currency
         })
-    chart_path = services.get_crypto_chart(symbol, data,selected_currency)
-    market_cap_chart_path = services.getsupply_chart(symbol, data,selected_currency)
+    chart_path = services.get_crypto_chart(symbol, data, selected_currency)
+    market_cap_chart_path = services.getsupply_chart(symbol, data, selected_currency)
 
     # Check if the charts are generated and pass them to the template
     if chart_path and market_cap_chart_path:
@@ -132,4 +131,3 @@ def crypto_detail(request, symbol):
             'error': 'Chart data is not available.',
             'selected_currency': selected_currency
         })
-

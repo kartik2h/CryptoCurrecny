@@ -90,6 +90,95 @@
             </div>
         </div>
     </div>
+<!-- Add a larger panel for user input (a form) -->
+<!-- Add a larger panel for user input (a form) -->
+<div class="input-panel">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <form method="get" action="">
+                    <label for="currency">Choose a currency:</label>
+                    <select name="currency" id="currency" onchange="this.form.submit()">
+                        <option value="USD" {% if selected_currency == "USD" %}selected{% endif %}>USD</option>
+                        <option value="EUR" {% if selected_currency == "EUR" %}selected{% endif %}>EUR</option>
+                        <option value="INR" {% if selected_currency == "INR" %}selected{% endif %}>INR</option>
+                        <!-- Add more currencies as needed -->
+                    </select>
+                </form>
+                <form>
+                    <div class="form-group">
+                        <style>
+                            body {
+                                font-family: Arial, sans-serif;
+                            }
+                            table {
+                                width: 100%;
+                                border-collapse: collapse;
+                            }
+                            th, td {
+                                border: 1px solid #ddd;
+                                text-align: left;
+                                padding: 8px;
+                            }
+                            th {
+                                background-color: #f2f2f2;
+                            }
+                            tr:hover {
+                                background-color: #f5f5f5;
+                                cursor: pointer;
+                            }
+                            .negative {
+                                color: red;
+                            }
+                            .positive {
+                                color: green;
+                            }
+                        </style>
+                        <!--<label for="coinAmount">Enter the amount of coins:</label>-->
+                       <!-- <input type="text" class="form-control" id="coinAmount" name="coinAmount">-->
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>1h %</th>
+                                    <th>24h %</th>
+                                    <th>7d %</th>
+                                    <th>Market Cap</th>
+                                    <th>Volume(24h)</th>
+                                    <th>Circulating Supply</th>
+                                </tr>
+                            </thead>
+                           <tbody>
+                                {% for crypto in cryptos %}
+                                <tr onclick="window.location='{% url 'crypto_detail' crypto.symbol %}';">
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ crypto.name }} {{ crypto.symbol }}</td>
+                                    <td>{{ crypto.price }}</td>
+                                    <td class="{% if crypto.percent_change_1h < 0 %}negative{% else %}positive{% endif %}">{{ crypto.percent_change_1h }}%</td>
+                                    <td class="{% if crypto.percent_change_24h < 0 %}negative{% else %}positive{% endif %}">{{ crypto.percent_change_24h }}%</td>
+                                    <td class="{% if crypto.percent_change_7d < 0 %}negative{% else %}positive{% endif %}">{{ crypto.percent_change_7d }}%</td>
+                                    <td>${{ crypto.market_cap}}</td>
+                                    <td>${{ crypto.volume_24h }}</td>
+                                    <td>{{ crypto.circulating_supply }} {{ crypto.symbol }}</td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="10">No cryptocurrency data available.</td>
+                                </tr>
+                                {% endfor %}
+                           </tbody>
+                    </table>
+
+                    </div>
+                    <!--<button type="submit" class="btn btn-primary">Submit</button>-->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
     {#    Services Section#}
     <div id="services" class="section-padding">

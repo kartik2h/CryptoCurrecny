@@ -9,6 +9,7 @@ urlpatterns = [
     path('login/', views.loginPage, name="login"),
     path('logout/', views.logoutView, name="logout"),
     path('home/', views.index, name='index'),
+    #path('index1/', views.index1, name='index1'),
     path('blockchain/', views.blockchain, name='blockchain'),
     path('Markettrends/', views.Markettrends, name='Markettrends'),
     path('crypto/<str:symbol>/', views.crypto_detail, name='crypto_detail'),

@@ -51,6 +51,7 @@
                     <label for="{{ user_form.password2.id_for_label }}">Confirm Password:</label>
                     {{ user_form.password2 }}
                 </div>
+                {{ user_form.errors }}
                 <div class="form-field">
                     <label for="{{ profile_form.profile_pic.id_for_label }}">Upload Profile Picture</label>
                     {{ profile_form.profile_pic }}
