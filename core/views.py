@@ -84,6 +84,14 @@ def blockchain(request):
 def Markettrends(request):
     return render(request, 'core/Markettrends.html')
 
+def tech_view(request):
+    # Add any context data if needed
+    return render(request, 'core/technology.html')
+
+def invest_view(request):
+    # Add any context data if needed
+    return render(request, 'core/investment.html')
+
 
 def index(request):
     selected_currency = request.GET.get('currency', 'USD')

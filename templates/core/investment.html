@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crypto Investment Tips</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://c8.alamy.com/comp/2G0N33H/bitcoin-cryptocurrency-blockchain-on-binary-golden-background-digital-money-abstract-background-in-digital-cyberspace-2G0N33H.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #333;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ffd700; /* Change color on hover */
+        }
+
+        main {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 800px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            color: #555;
+        }
+
+        ul, ol {
+            color: #555;
+            margin-left: 20px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 315px;
+            border: none;
+            border-radius: 8px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1px 0;
+            background-color: #333;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+	#how-to {
+            background-color: #f9f9f9;
+            padding: 30px;
+            text-align: center;
+        }
+
+        #how-to h2 {
+            color: #333;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        #how-to p {
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        #how-to ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #how-to li {
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        #how-to li::before {
+            content: "\2022"; /* Bullet point character */
+            color: #333;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+
+	#tips {
+            background-color: #f9f9f9;
+            padding: 30px;
+            text-align: center;
+        }
+
+        #tips h2 {
+            color: #333;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        #tips ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #tips li {
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        #tips li::before {
+            content: "\2022"; /* Bullet point character */
+            color: #333;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+	.tip-info {
+            margin-bottom: 20px;
+        }
+        .tip-info img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .tip-info p {
+            text-align: left;
+            line-height: 1.6;
+        }
+
+
+        #youtube {
+            background-color: #f9f9f9;
+            padding: 30px;
+            text-align: center;
+        }
+
+       #youtube {
+            background-color: #f9f9f9;
+            padding: 30px;
+            text-align: center;
+        }
+
+        #youtube h2 {
+            color: #333;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        #youtube p {
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        /* Updated styles for iframe */
+        #youtube iframe {
+            width: 100%;
+            max-width: 800px;
+            height: 400px;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+
+	#blogs {
+            background-color: #f9f9f9;
+            padding: 30px;
+		text-align: center;
+        }
+
+        #blogs h2 {
+            color: #333;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        #blogs ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #blogs li {
+            margin-bottom: 10px;
+        }
+
+        #blogs li a {
+            text-decoration: none;
+            color: #555;
+            display: block;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        #blogs li a:hover {
+            background-color: #ddd;
+        }
+
+
+	.step-info {
+            margin-bottom: 20px;
+        }
+        .step-info h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .step-info p {
+            text-align: left;
+            line-height: 1.6;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Crypto Investment Tips</h1>
+    <nav>
+        <ul>
+            <li><a href="#tips">Tips</a></li>
+            <li><a href="#youtube">YouTube</a></li>
+            <li><a href="#blogs">Blogs</a></li>
+            <li><a href="#how-to">How to Invest</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section id="tips">
+        <h2>Investment Tips</h2>
+
+        <div class="tip-info">
+            <h3>1. Do thorough research before investing.</h3>
+            <img src="https://www.imf.org/-/media/Images/IMF/FANDD/hero/2022/September/Allen-The-Superficial-Allure-Crypto.ashx" alt="Research Image">
+            <p>Researching cryptocurrencies before investing is crucial. Look into the technology, team, market trends, and potential risks. Tools like CoinMarketCap or CoinGecko can provide valuable insights.</p>
+        </div>
+
+        <div class="tip-info">
+            <h3>2. Diversify your investment portfolio.</h3>
+            <img src="https://uploads-ssl.webflow.com/6063626728ce7dfd0c61a317/61fcd75c4af46f0d39687fbf_How%20To%20Invest%20%241000%20in%20Crypto.jpeg" alt="Diversification Chart">
+            <p>Diversifying your portfolio across different cryptocurrencies can reduce risk. Allocate investments across various sectors or types of cryptocurrencies to spread risk and increase potential returns.</p>
+        </div>
+
+        <!-- Add similar div elements for other tips -->
+
+    </section>
+
+
+    <section id="youtube">
+        <h2>YouTube</h2>
+        <p>Check out our recommended YouTube video for crypto investment:</p>
+        <!-- Replace 'YOUR_YOUTUBE_VIDEO_ID' with the actual ID of your YouTube video -->
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/QO-iK4PlkWw?si=kZhvXB8kheyS5dTZ" frameborder="0" allowfullscreen></iframe>
+    </section>
+
+    <section id="blogs">
+        <h2>Blogs</h2>
+        <p>Explore our latest blogs on crypto investment:</p>
+        <ul>
+            <li><a href="https://www.fca.org.uk/investsmart/investing-crypto"> "Investing in crypto"</a></li>
+            <li><a href= "https://www.investopedia.com/terms/c/cryptocurrency.asp"> "Cryptocurrency Explained With Pros and Cons for Investment"</a></li>
+            <li><a href="https://www.investopedia.com/tech/most-important-cryptocurrencies-other-than-bitcoin/"> "10 Important Cryptocurrencies Other Than Bitcoin"</a></li>
+        </ul>
+    </section>
+
+    <section id="how-to">
+        <h2>How to Invest</h2>
+
+        <div class="step-info">
+            <h3>1. Choose a reliable cryptocurrency exchange.</h3>
+            <p>Research and compare different cryptocurrency exchanges based on factors like security measures, user interface, fees, supported cryptocurrencies, and user reviews. Popular exchanges include Coinbase, Binance, and Kraken.</p>
+        </div>
+
+        <div class="step-info">
+            <h3>2. Create an account and verify it.</h3>
+            <p>Follow the registration process on your chosen exchange. Provide necessary details, complete identity verification (KYC), and set up two-factor authentication (2FA) for added security.</p>
+        </div>
+
+        <div class="step-info">
+            <h3>3. Deposit funds into your account.</h3>
+            <p>After account creation, deposit funds into your exchange account using methods like bank transfers or credit/debit cards. Familiarize yourself with deposit limits and processing times.</p>
+        </div>
+
+        <div class="step-info">
+            <h3>4. Select the cryptocurrencies you want to invest in.</h3>
+            <p>Research different cryptocurrencies and their potential. Consider factors like technology, market demand, development team, and use cases. Start with well-established coins like Bitcoin or Ethereum.</p>
+        </div>
+
+        <div class="step-info">
+            <h3>5. Monitor your investments regularly.</h3>
+            <p>Keep track of your investments' performance using tools provided by the exchange or third-party apps. Stay updated with market news and trends to make informed decisions.</p>
+        </div>
+    </section>
+
+
+</main>
+
+<footer>
+    <p><a href="{% url 'home' %}" style="color: white;">Go to Home</a></p>
+</body>
+</footer>
+
+</html>

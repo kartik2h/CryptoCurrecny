@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptech: Exploring Cryptographic Applications and Breakthroughs</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-image: url('https://c8.alamy.com/comp/2G0N33H/bitcoin-cryptocurrency-blockchain-on-binary-golden-background-digital-money-abstract-background-in-digital-cyberspace-2G0N33H.jpg');
+        background-size: cover;
+        background-position: center;
+        color: #333;
+    }
+
+
+    h1 {
+        font-size: 36px;
+        color: #fff;
+    }
+
+    h2, h3 {
+        font-family: 'Arial', sans-serif;
+        color: #333;
+    }
+
+    p {
+        font-size: 18px;
+        line-height: 1.6;
+        color: #555;
+    }
+
+    header {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 40px 0;
+    }
+
+    nav {
+        background-color: #444;
+        text-align: center;
+        padding: 15px 0;
+    }
+
+    nav a {
+        color: #fff;
+        text-decoration: none;
+        margin: 0 20px;
+        font-size: 16px;
+    }
+
+    nav a:hover {
+        border-bottom: 2px solid #fff;
+    }
+
+    section {
+        padding: 50px 0;
+        text-align: center;
+    }
+
+    footer {
+            text-align: center;
+            padding: 1px 0;
+            background-color: #333;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+
+    /* General container styles */
+    .app-container,
+    .new-tech-container,
+    .use-cases-container,
+    .case-studies-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    /* General box styles */
+    .app,
+    .new-tech,
+    .use-case,
+    .case-study {
+        width: 300px;
+        margin: 20px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background-color: #fff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+    }
+
+    .app:hover,
+    .new-tech:hover,
+    .use-case:hover,
+    .case-study:hover {
+        transform: translateY(-5px);
+    }
+
+    /* Button styles */
+    a.btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #333;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+    a.btn:hover {
+        background-color: #555;
+    }
+
+    /* Styles for individual sections */
+
+    /* Cryptographic Applications */
+    #crypt-applications h2 {
+        display: inline-block;
+        background-color: #f8f8f8;
+        padding: 10px;
+        border-radius: 5px;
+        color: #333;
+        margin: 20px 0;
+    }
+
+    .app img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+
+    .app h3 {
+        font-size: 20px;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .app p {
+        font-size: 16px;
+        line-height: 1.6;
+        color: #555;
+    }
+
+    /* New Technology */
+    #new-technology h2 {
+        display: inline-block;
+        background-color: #f8f8f8;
+        padding: 10px;
+        border-radius: 5px;
+        color: #333;
+        margin: 20px 0;
+    }
+
+    .new-tech img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+
+    .new-tech h3 {
+        font-size: 20px;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .new-tech p {
+        font-size: 16px;
+        line-height: 1.6;
+        color: #555;
+    }
+
+    /* Breakthrough Use Cases */
+    #breakthrough-usecases h2 {
+        display: inline-block;
+        background-color: #f8f8f8;
+        padding: 10px;
+        border-radius: 5px;
+        color: #333;
+        margin: 20px 0;
+    }
+
+    .use-case img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+
+    .use-case h3 {
+        font-size: 20px;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .use-case p {
+        font-size: 16px;
+        line-height: 1.6;
+        color: #555;
+    }
+
+    /* Case Studies */
+    #case-studies h2 {
+        display: inline-block;
+        background-color: #f8f8f8;
+        padding: 10px;
+        border-radius: 5px;
+        color: #333;
+        margin: 20px 0;
+    }
+
+    .case-study img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+
+    .case-study h3 {
+        font-size: 20px;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .case-study p {
+        font-size: 16px;
+        line-height: 1.6;
+        color: #555;
+    }
+
+    .case-study .btn {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #333;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    .case-study .btn:hover {
+        background-color: #555;
+    }
+</style>
+
+    </style>
+</head>
+<body>
+    <header>
+	  
+        <h1>Cryptech: Exploring Cryptographic Applications and Breakthroughs</h1>
+    </header>
+    <nav>
+        <a href="#crypt-applications">Cryptographic Applications</a>
+        <a href="#new-technology">New Technology</a>
+        <a href="#breakthrough-usecases">Breakthrough Use Cases</a>
+	  <a href="#case-studies">Success Stories </a>
+    </nav>
+
+    <section id="crypt-applications">
+        <h2>Cryptographic Applications</h2>
+        <div class="app-container">
+            <div class="app">
+                <img src="https://bs-uploads.toptal.io/blackfish-uploads/components/blog_post_page/content/cover_image_file/cover_image/1303387/regular_1708x683_Untitled-e7fde53f1e5631a8728cc9aefc1538e8.png" alt="Blockchain and Cryptocurrencies" alt="Blockchain and Cryptocurrencies">
+                <h3>Blockchain and Cryptocurrencies</h3>
+                <p>Blockchain, the underlying technology of cryptocurrencies like Bitcoin, uses cryptographic principles to secure transactions and maintain a decentralized ledger.</p>
+                <a href="https://en.wikipedia.org/wiki/Blockchain" target="_blank" class="btn">Learn More</a>
+            </div>
+            <div class="app">
+                <img src="https://academy.avast.com/hs-fs/hubfs/New_Avast_Academy/the_most_secure_messaging_apps_academy/secure-messaging-01.png?width=1320&height=600&name=secure-messaging-01.png" alt="End-to-End Encryption in Messaging Apps" alt="End-to-End Encryption in Messaging Apps">
+                <h3>End-to-End Encryption in Messaging Apps</h3>
+                <p>Messaging apps employ end-to-end encryption to secure messages, ensuring that only the sender and receiver can read them.</p>
+                <a href="https://en.wikipedia.org/wiki/End-to-end_encryption" target="_blank" class="btn">Learn More</a>
+            </div>
+            <!-- Add more applications similarly -->
+        </div>
+    </section>
+
+    <<section id="new-technology">
+        <h2>New Technology</h2>
+        <div class="new-tech-container">
+            <div class="new-tech">
+                <img src="https://i.ytimg.com/vi/WzRVQ_wE0KY/maxresdefault.jpg" alt="Post-Quantum Cryptography" alt="Post-Quantum Cryptography">
+                <h3>Post-Quantum Cryptography</h3>
+                <p>Post-quantum cryptography aims to develop cryptographic systems that are secure against quantum computers.</p>
+                <a href="https://en.wikipedia.org/wiki/Post-quantum_cryptography" target="_blank" class="btn">Learn More</a>
+            </div>
+            <div class="new-tech">
+                <img src="https://safelishare.com/static/a1d0a1958e7d1e76b567e31fe37bf135/1263b/using-homomorphic-encryption-for-data-sharing-with-privacy-across-clouds-and-why-not-1.png" alt="Homomorphic Encryption">
+                <h3>Homomorphic Encryption</h3>
+                <p>Homomorphic encryption allows computations to be performed on encrypted data without decrypting it first.</p>
+                <a href="https://en.wikipedia.org/wiki/Homomorphic_encryption" target="_blank" class="btn">Learn More</a>
+            </div>
+            <!-- Add more new technologies similarly -->
+        </div>
+    </section>
+
+    <section id="breakthrough-usecases">
+        <h2>Breakthrough Use Cases</h2>
+        <div class="use-cases-container">
+            <div class="use-case">
+                <img src="https://cheapsslsecurity.com/blog/wp-content/uploads/2017/10/iot-device-security.jpg" alt="Secure Internet of Things (IoT)">
+                <h3>Secure Internet of Things (IoT)</h3>
+                <p>Cryptographic techniques ensure secure communication and data integrity in IoT devices, preventing unauthorized access.</p>
+                <a href="https://www.g2.com/categories/iot-security-solutions" target="_blank" class="btn">Learn More</a>
+            </div>
+            <div class="use-case">
+                <img src="https://cdn.scopicsoftware.com/wp-content/uploads/2023/10/person-using-ai-tool-job-scaled.webp" alt="Privacy-Preserving AI and Machine Learning">
+                <h3>Privacy-Preserving AI and Machine Learning</h3>
+                <p>Cryptography enables machine learning on encrypted data while preserving user privacy.</p>
+                <a href="https://ai.sony/blog/blog-035/#:~:text=The%20standard%20privacy%2Dpreserving%20practices,and%20Federated%20Learning%20(FL)." target="_blank" class="btn">Learn More</a>
+            </div>
+            <!-- Add more breakthrough use cases similarly -->
+        </div>
+
+<section id="case-studies">
+        <h2>Case Studies or Success Stories</h2>
+        <div class="case-studies-container">
+            <div class="case-study">
+                <img src="https://thumbor.forbes.com/thumbor/fit-in/x/https://www.forbes.com/advisor/ca/wp-content/uploads/2022/06/top-cryptocurrencies.jpeg" alt="Case Study 1">
+                <h3>Case Study 1 : Cryptocurrencies a Good Investment</h3>
+                <p>A Case Study on Cryptocurrencies a Good Investment:The Predictive and Perspective Analysis by Using R-Language.</p>
+                <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4062941" target="_blank" class="btn">Read More</a>
+            </div>
+            <div class="case-study">
+                <img src="https://m.foolcdn.com/media/dubs/images/original_imagesoriginal_imageshttpsg.foolcdn.c.width-880_SfbkM9V.jpg" alt="Case Study 2">
+                <h3>Case Study 2 : Cryptocurrencies, Digital Dollars, and the Future of Money</h3>
+                <p>Description of another case study showcasing the role of cryptography in the world and upcoming future.</p>
+                <a href="https://www.cfr.org/backgrounder/cryptocurrencies-digital-dollars-and-future-money" target="_blank" class="btn">Read More</a>
+            </div>
+            <!-- Add more case studies similarly -->
+        </div>
+    </section>
+	
+    <footer>
+        <p><a href="{% url 'home' %}" style="color: white;">Go to Home</a></p>
+    </body>
+    </footer>
+    
+
+</html>

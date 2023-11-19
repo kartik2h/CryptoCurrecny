@@ -13,6 +13,8 @@ urlpatterns = [
     path('blockchain/', views.blockchain, name='blockchain'),
     path('Markettrends/', views.Markettrends, name='Markettrends'),
     path('crypto/<str:symbol>/', views.crypto_detail, name='crypto_detail'),
+    path('technology/', views.tech_view, name='tech_page'),
+    path('investment/', views.invest_view, name='invest'),
 
 
 ]
