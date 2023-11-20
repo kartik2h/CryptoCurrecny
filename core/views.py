@@ -8,7 +8,8 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import *
 from .forms import CreateUserForm, UserProfileForm
 from django.contrib.auth import authenticate, login, logout
-
+from django.contrib.auth.forms import PasswordResetForm
+import yagmail
 from django.contrib import messages
 
 from .forms import CreateUserForm, UserProfileForm
@@ -75,6 +76,30 @@ def loginPage(request):
 def logoutView(request):
     logout(request)
     return redirect('home')
+
+
+def send_email(subject, contents, to_email):
+    yag = yagmail.SMTP('cryptosphereinnovators@gmail.com', 'crypto@123')
+    yag.send(to=to_email, subject=subject, contents=contents)
+
+def forgot_password(request):
+    if request.method == "POST":
+        form = PasswordResetForm(request.POST)
+        if form.is_valid():
+            form.save(
+                request=request,
+                use_https=request.is_secure(),
+                email_template_name='core/reset_email_template.html',
+                subject_template_name='core/reset_subject_template.txt',
+                from_email='cryptosphereinnovators@gmail.com',
+            )
+            return redirect('password_reset_done')
+    else:
+        form = PasswordResetForm()
+    return render(request, 'core/forgot_password_template.html', {'form': form})
+
+
+
 
 
 def blockchain(request):
