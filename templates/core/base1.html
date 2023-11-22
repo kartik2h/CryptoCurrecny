@@ -62,13 +62,27 @@
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                 <i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand page-scroll" href="/">CRYPTOSPHERE<span></span> </a>
+            <a class="navbar-brand page-scroll">CRYPTOSPHERE<span></span> </a>
         </div>
         <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a class="smooth-menu" href="#home" style="margin-left: 0;">Home</a></li>
                 <li><a class="smooth-menu" href="#about">Exchange</a></li>
-                <li><a class="smooth-menu" href="#portfolio">Portfolio</a></li>
+                  <li class="transparent-dropdown" id="blog-news-dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">BLOG/NEWS<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <br>
+                        <li><a href="/Markettrends">Market Updates</a></li>
+                        <br>
+                        <li><a href="/blockchain">Blockchain</a></li>
+                        <br>
+                        <li><a href="{% url 'tech_page' %}">Technology</a></li>
+                        <br>
+                        <li><a href="{% url 'invest' %}">Investment Tips</a></li>
+                        <br>
+                        <!-- Add more categories here -->
+                    </ul>
+                </li>
                 <li><a class="smooth-menu" href="#contact">ABOUT</a></li>
                 <li><a href="{% url 'logout' %}" class="custom-btn">Log Out</a></li>
                 {% if user.is_authenticated %}

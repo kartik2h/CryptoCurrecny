@@ -18,17 +18,8 @@ from .models import Cryptocurrency
 
 
 def home_view(request):
-    about = About.objects.first()
-    services = Service.objects.all()
-    works = RecentWork.objects.all()
+    return render(request, 'core/home.html')
 
-    context = {
-        'about': about,
-        'services': services,
-        'works': works,
-    }
-
-    return render(request, 'core/home.html', context)
 
 
 def registerPage(request):
@@ -82,6 +73,7 @@ def send_email(subject, contents, to_email):
     yag = yagmail.SMTP('cryptosphereinnovators@gmail.com', 'crypto@123')
     yag.send(to=to_email, subject=subject, contents=contents)
 
+
 def forgot_password(request):
     if request.method == "POST":
         form = PasswordResetForm(request.POST)
@@ -99,9 +91,6 @@ def forgot_password(request):
     return render(request, 'core/forgot_password_template.html', {'form': form})
 
 
-
-
-
 def blockchain(request):
     return render(request, 'core/blockchain.html')
 
@@ -109,9 +98,11 @@ def blockchain(request):
 def Markettrends(request):
     return render(request, 'core/Markettrends.html')
 
+
 def tech_view(request):
     # Add any context data if needed
     return render(request, 'core/technology.html')
+
 
 def invest_view(request):
     # Add any context data if needed
@@ -132,7 +123,8 @@ def index(request):
 
     # Pass the list of cryptocurrencies to the template
     return render(request, 'core/home1.html', {'cryptos': cryptos,
-                                               'profile_pic': profile_pic})
+                                               'profile_pic': profile_pic,
+                                               'selected_currency': selected_currency})
 
 
 def crypto_detail(request, symbol):

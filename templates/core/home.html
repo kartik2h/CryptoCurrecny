@@ -107,8 +107,8 @@
                 <form method="get" action="">
                     <label for="currency">Choose a currency:</label>
                     <select name="currency" id="currency" onchange="this.form.submit()">
-                        <option value="USD" {% if selected_currency == "USD" %}selected{% endif %}>USD</option>
-                        <option value="EUR" {% if selected_currency == "EUR" %}selected{% endif %}>EUR</option>
+                        <option  value="USD" {% if selected_currency == "USD" %}selected{% endif %}>USD</option>
+                        <option  value="EUR" {% if selected_currency == "EUR" %}selected{% endif %}>EUR</option>
                         <option value="INR" {% if selected_currency == "INR" %}selected{% endif %}>INR</option>
                         <!-- Add more currencies as needed -->
                     </select>
@@ -186,60 +186,6 @@
         </div>
     </div>
 </div>
-
-
-    {#    Services Section#}
-    <div id="services" class="section-padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="section-header text-center">
-                        <h2>Services WE offer</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                {% for service in services %}
-
-                    <div class="col-md-4 col-sm-4">
-                        <div class="single-service wow fadeInDown" data-wow-delay="0.2s">
-                            <i class="icon icon-wallet"></i>
-                            <h2>{{ service.name }}</h2>
-                            <p>{{ service.description }}</p>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-
-    {#    Recent Works Section#}
-    <div id="portfolio" class="portfolio-area section-padding">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="section-header">
-                        <h2>My Recent Works</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                {% for work in works %}
-                    <div class="col-md-4 col-sm-4 col-xs-12 no-padding">
-                        <div class="gallery-items">
-                            <a class="view img" href="{{ work.image.url }}">
-                                <img src="{{ work.image.url }}" alt="work image">
-                            </a>
-
-                            <div class="gallery-text">
-                                <h2>{{ work.title }}</h2>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
 
 
 
