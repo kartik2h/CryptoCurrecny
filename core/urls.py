@@ -7,6 +7,7 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', views.home_view, name='home'),
+    
     path('register/', views.registerPage, name='register'),
     path('login/', views.loginPage, name="login"),
     path('logout/', views.logoutView, name="logout"),
@@ -17,9 +18,8 @@ urlpatterns = [
     path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name='core/reset_password_sent.html'), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='core/reset_password_form.html'), name='password_reset_confirm'),
     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name='core/reset_password_complete.html'), name='password_reset_complete'),
-
-
-
+    path('contact/', views.contact_us, name='contact_us'),
+    path('thank_you/', views.thank_you, name='thank_you'),
     path('blockchain/', views.blockchain, name='blockchain'),
     path('Markettrends/', views.Markettrends, name='Markettrends'),
     path('crypto/<str:symbol>/', views.crypto_detail, name='crypto_detail'),

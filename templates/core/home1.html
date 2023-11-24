@@ -184,27 +184,18 @@
     <title>About Us</title>
     <style>
         /* Style for the contact information */
-        .contact-info {
-            background: #f0f0f0; /* Background color */
-            padding: 15px; /* Padding */
-            text-align: center; /* Center-align text */
-            border: 1px solid #ccc; /* Add a border for separation */
-            margin-top: 20px; /* Add some space between ABOUT US and contact info */
+        .contact-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
         }
 
-        /* Style for the email link */
-        .contact-info a {
-            color: #007bff; /* Change the link color to blue */
-            text-decoration: none; /* Remove underlines from links */
-        }
-
-        /* Style for social media icons */
-        .social-icons {
-            margin-top: 10px;
-        }
-
-        .social-icons a {
-            margin-right: 10px; /* Add spacing between icons */
+        .contact-button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -221,13 +212,11 @@
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2 box-contact-form">
                 <div id="about-container"></div>
-                <div id="contact-container" class="contact-info">
-                    <p>Contact us at - <a href="mailto:cryptosphereinnovators@outlook.com">cryptosphereinnovators@outlook.com</a></p>
-                    <div class="social-icons">
-                        <a href="https://www.whatsapp.com" target="_blank"><img src="{% static 'whatsapp.png' %}" alt="WhatsApp" style="width: 30px; height: 30px; margin-right: 40px;"></a>
-                        <a href="https://www.facebook.com" target="_blank"><img src="{% static 'facebook.png' %}" alt="Facebook" style="width: 30px; height: 30px; margin-right: 40px;"></a>
-                        <a href="https://twitter.com" target="_blank"><img src="{% static 'twitter.png' %}" alt="Twitter" style="width: 30px; height: 30px; margin-right: 40px;"></a>
-                        <a href="https://www.linkedin.com" target="_blank"><img src="{% static 'linkedin.png' %}" alt="LinkedIn" style="width: 30px; height: 30px;"></a>
+                <div class="welcome-text">
+                    <div class="name-area wow fadeInDown" data-wow-delay="0.2s">
+                        <h1 id="highlightText"></h1>
+                        <!-- Add the Contact Us button -->
+                        <a href="{% url 'contact_us' %}" class="contact-button">Contact Us</a>
                     </div>
                 </div>
             </div>

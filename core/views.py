@@ -4,9 +4,9 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.forms import inlineformset_factory
 from django.contrib.auth.forms import UserCreationForm
-
+from django.core.mail import send_mail
 from .models import *
-from .forms import CreateUserForm, UserProfileForm
+from .forms import CreateUserForm, UserProfileForm, ContactForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import PasswordResetForm
 import yagmail
@@ -156,3 +156,27 @@ def crypto_detail(request, symbol):
             'error': 'Chart data is not available.',
             'selected_currency': selected_currency
         })
+
+def contact_us(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form_instance = form.save(commit=False)  # Save form data but don't commit to the database yet
+            form_instance.save()  # Save to database
+
+            # Sending email notification
+            subject = 'New Contact Form Submission'
+            message = f'You have a new contact form submission:\n\nName: {form_instance.name}\nEmail: {form_instance.email}\nMessage: {form_instance.message}'
+            from_email = 'cryptosphereinnovators@gmail.com'  # Replace with your email
+            to_email = 'cryptosphereinnovators@gmail.com'  # Replace with admin email
+            send_mail(subject, message, from_email, [to_email])
+
+            return redirect('thank_you')  # Redirect to a thank you page or any other desired URL
+
+    else:
+        form = ContactForm()
+
+    return render(request, 'core/contact_us.html', {'form': form})
+
+def thank_you(request):
+    return render(request, 'core/thank_you.html')
