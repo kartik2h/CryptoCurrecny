@@ -111,7 +111,7 @@ def invest_view(request):
 
 def index(request):
     selected_currency = request.GET.get('currency', 'USD')
-
+    request.session['selected_currency'] = selected_currency
     # Fetch cryptocurrency data in the selected currency
     cryptos = services.get_cryptocurrency_data(currency=selected_currency)
 
@@ -131,8 +131,8 @@ def crypto_detail(request, symbol):
     # Here you can fetch detailed data based on the symbol
     # detailed_data = get_detailed_data(symbol)  # Implement this function
 
-    selected_currency = request.GET.get('currency', 'USD')
-    crypto_data = services.get_cryptocurrency_data(selected_currency)
+    selected_currency = request.session.get('selected_currency', 'USD')
+    crypto_data = services.get_cryptocurrency_data(currency=selected_currency)
     data = next((item for item in crypto_data if item.symbol == symbol), None)
 
     if not data:

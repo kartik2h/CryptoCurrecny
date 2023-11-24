@@ -14,7 +14,7 @@ def get_cryptocurrency_data(currency='USD'):
     url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
     parameters = {
         'start': '1',
-        'limit': '10',
+        'limit': '15',
         'convert': currency
     }
     headers = {
