@@ -2,17 +2,412 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Crypto Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .navbar {
+            background-color: #000; /* Black background for the navbar */
+            color: #fff; /* White text color */
+            width: 100%; /* Full width */
+            padding: 10px 20px; /* Padding on top/bottom and left/right */
+            display: flex;
+            justify-content: space-between; /* Space out brand and home link */
+            align-items: center;
+            position: fixed; /* Fix the navbar at the top */
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        /* Container to manage the internal layout */
+        .nav-container {
+            width: 100%;
+            max-width: 1200px; /* Maximum width of the content */
+            margin: 0 auto; /* Centering the content */
+            padding: 0 20px; /* Padding on the sides */
+            display: flex;
+            justify-content: space-between; /* Space between the elements */
+            align-items: center;
+        }
+
+        /* Branding and items styles */
+        .nav-brand, .nav-item {
+            text-decoration: none; /* No underlines */
+            color: #fff; /* White text */
+            font-weight: bold; /* Bold font for emphasis */
+            font-size: 24px; /* Larger text for the brand */
+            padding: 8px 16px; /* Padding for clickable area */
+        }
+
+        .nav-item {
+            font-size: 18px; /* Smaller text for navigation items */
+            transition: background-color 0.3s; /* Smooth transition for hover effect */
+        }
+
+        .nav-item:hover {
+            background-color: #333; /* Darker background on hover */
+            border-radius: 4px; /* Rounded corners on hover */
+        }
+
+        /* Responsive adjustments, if necessary */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav-brand {
+                margin-bottom: 10px; /* Space between brand and item on mobile */
+            }
+        }
+
+
+
+       .crypto-container {
+            background: #fff;
+            padding: 15px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .crypto-container h2 {
+            margin: 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .crypto-price {
+            font-size: 24px;
+            margin: 10px 0;
+            font-size: 36px; /* Larger font for the price */
+            font-weight: bold; /* Make the price bold */
+            margin-bottom: 20px; /* Space before the percentage changes */
+        }
+        .sidebar {
+            /* Existing styles... */
+            width: 300px; /* Adjust the width as necessary */
+            padding: 20px; /* Add padding to the entire sidebar */
+            background: #fff; /* If you want the whole sidebar to have a white background */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for the entire sidebar */
+        }
+
+
+        /* Stat Item styles */
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0; /* More padding for a spacious design */
+            font-size: 16px; /* Larger font for better readability */
+            border-bottom: 1px solid #eaeaea; /* Subtle borders as per the image */
+        }
+
+        .info-item span {
+            display: block; /* Each stat on its own line */
+            color: #333;
+            margin: 10px 0; /* Space between stats */
+        }
+
+        .info-item .value {
+            font-weight: bold;
+            display: inline-block; /* Value next to label */
+            margin-left: 5px; /* Space after label */
+        }
+
+        .info-item {
+            padding: 12px 0; /* Ample padding for a spacious design */
+            font-size: 16px; /* Adjust font size for readability */
+            border-bottom: 1px solid #eaeaea; /* Subtle border for separation */
+        }
+
+        /* Add icons if needed */
+        .info-item i {
+            margin-right: 8px; /* Space between icon and text */
+        }
+
+        /* Percentage Change styles */
+        .crypto-change span {
+            /* Inline-block for side-by-side as in the image */
+            margin-right: 10px; /* Space between items */
+            font-weight: bold; /* Bold for visibility */
+            font-size: 18px; /* Larger font size for changes */
+            display: block;
+        }
+
+        .positive {
+            color: #4caf50;
+        }
+
+        .negative {
+            color: #f44336;
+        }
+
+        .crypto-market-cap,
+        .crypto-volume,
+        .crypto-supply {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+        .main-content {
+            flex-grow: 1; /* This will make the main content fill the available space next to the sidebar */
+            padding: 20px;
+            display: flex; /* Use flexbox to allow children to grow */
+            flex-direction: column; /* Stack children vertically */
+            align-items: stretch; /* Stretch children to match the width of the main content */
+            background-color: #f8f8f8;
+            margin-top: 60px;
+        }
+
+        .chart-container {
+            flex-grow: 1; /* This will make the chart container take up all available space */
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px; /* Rounded corners like in the image *
+            box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.05); /* Softer shadow as per the image */
+            margin-bottom: 20px; /* Increase bottom margin for spacing */
+            margin-top: 20px;
+            display: none; /* Default to block, but this will be overridden by flex-grow */
+            overflow: hidden;
+            position: relative; /* If you need to absolutely position anything inside */
+
+        }
+
+        .chart-container img {
+            max-width: 100%; /* Ensures the image is no larger than the container */
+            max-height: 100%; /* Ensures the image is no taller than the container */
+            object-fit: contain; /* Keeps the image's aspect ratio */
+        }
+        .chart-container.active {
+            display: block; /* Only the active chart container will be displayed */
+        }
+        .crypto-container h2 {
+            font-size: 22px; /* Adjust if necessary */
+            color: #333;
+            margin-bottom: 20px; /* Space before the price */
+        }
+
+        .crypto-stat {
+            /* Spacing between stats */
+            margin: 10px 0;
+        }
+
+        .label {
+            /* Make labels bold */
+            font-weight: bold;
+        }
+
+        .crypto-changes span, .crypto-market-data div {
+            /* Spacing and layout for percentage changes and market data */
+            display: block; /* Each on a new line */
+            margin: 8px 0; /* Adjust the space between lines */
+        }
+
+        /* You might want to adjust the font size for better readability */
+        .crypto-stat, .crypto-changes span, .crypto-market-data div {
+            font-size: 16px; /* Example font size */
+        }
+        .button-container {
+            text-align: center; /* Center the buttons */
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 8px;
+            display: inline-block; /* Make the container fit the width of the buttons */
+            box-shadow: 0 2px 5px 0 rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 0; /* Remove margin to eliminate space between buttons */
+            border: none;
+            border-radius: 4px;
+            background-color: #f0f0f0; /* Light grey background */
+            color: #007bff; /* Text color */
+            cursor: pointer;
+            font-size: 16px;
+            outline: none; /* Remove outline */
+            border: 1px solid #007bff; /* Add a border */
+            min-width: 100px; /* Minimum width for each button */
+        }
+
+        button:hover {
+            background-color: #e0e0e0; /* Slightly darker grey on hover */
+        }
+
+        /* Active button style */
+        button.active {
+            background-color: #007bff; /* Blue background for active button */
+            color: white; /* White text for active button */
+        }
+
+        /* First button specific style for rounded corners */
+        button:first-child {
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+
+        /* Last button specific style for rounded corners */
+        button:last-child {
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+
+        .sidebar {
+            margin-top: 60px; /* Adjust this value based on the actual height of your navbar */
+            /* ... other styles ... */
+        }
+        /* Additional styles for sidebar content to match the uploaded image */
+        .sidebar h2, .sidebar h1, .sidebar p {
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .sidebar h1 {
+            font-size: 36px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .sidebar p {
+            font-size: 18px;
+            color: #666;
+            margin-top: 60px;
+        }
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eaeaea;
+        }
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        .info-item span {
+            color: #888;
+        }
+        .info-item .value {
+            font-weight: bold;
+        }
+        .positive {
+            color: #4caf50;
+        }
+        .negative {
+            color: #f44336;
+        }
+    </style>
+
 </head>
 <body>
-{% if chart_path %}
-    <img src="{{ chart_path }}" alt="Crypto Chart">
-{% endif %}
-{% if market_cap_chart_path %}
-    <img src="{{ market_cap_chart_path }}" alt="Market Cap vs. Supply Ch.96art">
-{% endif %}
-{% if error %}
-    <p>{{ error }}</p>
-{% endif %}
+<nav class="navbar">
+        <div class="nav-container">
+            <a href="/home" class="nav-brand">CRYPTOSPHERE</a>
+            <div class="nav-items">
+                <a href="/home" class="nav-item">HOME</a>
+            </div>
+        </div>
+    </nav>
+<div class="sidebar">
+    <div class="crypto-container">
+        <h2>{{ crypto.name }} ({{ crypto.symbol }})</h2>
+        <div class="crypto-stat"><span class="label">Price:</span> {{ crypto.price|floatformat:8 }}</div>
+        <div class="crypto-stat">
+            <span class="{% if crypto.percent_change_1h < 0 %}negative{% else %}positive{% endif %}">
+                <span class="label">1h:</span> {{ crypto.percent_change_1h|floatformat:2 }}%
+            </span>
+        </div>
+        <div class="crypto-stat">
+            <span class="{% if crypto.percent_change_24h < 0 %}negative{% else %}positive{% endif %}">
+                <span class="label">24h:</span> {{ crypto.percent_change_24h|floatformat:2 }}%
+            </span>
+        </div>
+        <div class="crypto-stat">
+            <span class="label">30d:</span>
+            <span class="{% if crypto.percent_change_30d < 0 %}negative{% else %}positive{% endif %}">
+                {{ crypto.percent_change_30d|floatformat:2 }}%
+            </span>
+        </div>
+        <div class="crypto-stat">
+            <span class="label">60d:</span>
+            <span class="{% if crypto.percent_change_60d < 0 %}negative{% else %}positive{% endif %}">
+                {{ crypto.percent_change_60d|floatformat:2 }}%
+            </span>
+        </div>
+        <div class="crypto-stat">
+            <span class="label">90d:</span>
+            <span class="{% if crypto.percent_change_90d < 0 %}negative{% else %}positive{% endif %}">
+                {{ crypto.percent_change_90d|floatformat:2 }}%
+            </span>
+        </div>
+        <!-- Repeat for other time periods -->
+        <div class="crypto-stat"><span class="label">Market Cap:</span> {{ crypto.market_cap }}</div>
+        <div class="crypto-stat"><span class="label">Volume (24h):</span> {{ crypto.volume_24h }}</div>
+        <div class="crypto-stat"><span class="label">Volume Change (24h):</span> {{ crypto.volume_change_24h }}%</div>
+        <div class="crypto-stat"><span class="label">Market Cap Dominance:</span> {{ crypto.market_cap_dominance }}%</div>
+        <div class="crypto-stat"><span class="label">Fully Diluted Market Cap:</span> {{ crypto.fully_diluted_market_cap }}</div>
+        <div class="crypto-stat">
+            <span class="label">Circulating Supply:</span> {{ crypto.circulating_supply }} {{ crypto.symbol }}
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="main-content">
+        <div class="button-container">
+        <button data-chart="price-chart-container" onclick="showChart('price-chart-container')">Price Chart</button>
+        <button data-chart="market-cap-container" onclick="showChart('market-cap-container')">Market Cap Chart</button>
+    </div>
+
+        <!-- Price Chart Container -->
+        <div id="price-chart-container" class="chart-container">
+            <img src="{{ chart_path }}" alt="Bitcoin Price Chart" style="width:100%;">
+        </div>
+
+        <!-- Market Cap Chart Container -->
+        <div id="market-cap-container" class="chart-container">
+            <img src="{{ market_cap_chart_path }}" alt="Market Cap Chart" style="width:100%;">
+        </div>
+
+        <!-- Error Message -->
+        <div id="error-container">
+            <!-- Display error message if any -->
+            {% if error %}
+                <p>{{ error }}</p>
+            {% endif %}
+        </div>
+</div>
+<script>
+    function showChart(chartId) {
+        // Remove the 'active' class from all chart containers
+        document.querySelectorAll('.chart-container').forEach(function(chart) {
+            chart.classList.remove('active');
+        });
+
+        // Remove the 'active' class from all buttons
+        document.querySelectorAll('.button-container button').forEach(function(button) {
+            button.classList.remove('active');
+        });
+
+        // Add the 'active' class to the selected chart container
+        document.getElementById(chartId).classList.add('active');
+
+        // Add the 'active' class to the button that corresponds to the chart
+        document.querySelector(`button[data-chart=${chartId}]`).classList.add('active');
+    }
+
+    // Set one chart to be visible when the page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        showChart('price-chart-container'); // Make the price chart visible by default
+    });
+</script>
 </body>
 </html>

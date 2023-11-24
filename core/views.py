@@ -148,13 +148,16 @@ def crypto_detail(request, symbol):
         return render(request, 'core/crypto_detail.html', {
             'chart_path': chart_path,
             'market_cap_chart_path': market_cap_chart_path,
-            'selected_currency': selected_currency
+            'selected_currency': selected_currency,
+            'crypto': data
             # 'data': detailed_data  # Add or modify as needed
         })
     else:
         return render(request, 'core/crypto_detail.html', {
             'error': 'Chart data is not available.',
-            'selected_currency': selected_currency
+            'selected_currency': selected_currency,
+            'crypto': data
+
         })
 
 def contact_us(request):
