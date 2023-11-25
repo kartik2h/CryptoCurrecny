@@ -203,7 +203,29 @@ def store(request):
         order ={'get_cart_total':0, 'get_cart_items':0}
         cartItems = order['get_cart_items']
     products=Product.objects.all()
-    context = {'products':products, 'cartItems':cartItems}
+    selected_currency = request.session.get('selected_currency', 'USD')
+    crypto_data = services.get_cryptocurrency_data(currency=selected_currency)
+    product_to_symbol = {
+        'Tether': 'USDT',
+        'Dash': 'DOGE',
+        'Litecoin': 'LTC',
+        'BitCoin': 'BTC',
+        'Monero': 'XMR',
+        'Altcoins': 'AVAX'
+    }
+    product_price_map = {}
+
+    for product in products:
+        symbol = product_to_symbol.get(product.name)
+        if symbol:
+            # Find the corresponding cryptocurrency instance
+            crypto = next((c for c in crypto_data if c.symbol == symbol), None)
+            if crypto:
+                product_price_map[product.name] = crypto.price
+            else:
+                product_price_map[product.name] = None  # or some default value
+
+    context = {'products':products, 'cartItems':cartItems,'product_price_map': product_price_map}
     #print(context) 
     return render(request, 'core/store.html', context)
 
