@@ -4,6 +4,11 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.forms import inlineformset_factory
 from django.contrib.auth.forms import UserCreationForm
+from django.http import JsonResponse
+import json
+import datetime
+from django.views.decorators.csrf import csrf_exempt
+import paypalrestsdk 
 from django.core.mail import send_mail
 from .models import *
 from .forms import CreateUserForm, UserProfileForm, ContactForm
@@ -11,10 +16,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import PasswordResetForm
 import yagmail
 from django.contrib import messages
-
 from .forms import CreateUserForm, UserProfileForm
 from core import services
 from .models import Cryptocurrency
+from .forms import CreateUserForm, UserProfileForm
+from . utils import cookieCart
 
 
 def home_view(request):
@@ -183,3 +189,121 @@ def contact_us(request):
 
 def thank_you(request):
     return render(request, 'core/thank_you.html')
+
+
+def store(request):
+
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        items = order.orderitem_set.all()
+        cartItems = order.get_cart_items
+    else:
+        items = []
+        order ={'get_cart_total':0, 'get_cart_items':0}
+        cartItems = order['get_cart_items']
+    products=Product.objects.all()
+    context = {'products':products, 'cartItems':cartItems}
+    #print(context) 
+    return render(request, 'core/store.html', context)
+
+def cart(request):
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        items = order.orderitem_set.all()
+        cartItems = order.get_cart_items
+    else:
+        try:
+            cart = json.loads(request.COOKIES['cart'])
+        except:
+            cart = {}
+        print('Cart:', cart)
+        items = []
+        order ={'get_cart_total':0, 'get_cart_items':0}
+        cartItems = order['get_cart_items']
+
+        for i in cart:
+            try:
+                cartItems += cart[i]["quantity"]
+
+                product = Product.objects.get(id=i)
+                total = (product.price * cart[i]["quantity"])
+
+                order['get_cart_total'] +=total
+                order['get_cart_items'] +=cart[i]["quantity"]
+
+                item = {
+                    'product': {
+                        'id':product.id,
+                        'name' : product.name,
+                        'price' :product.price,
+                        'imageURL':product.imageURL,
+                        },
+                    'quantity': cart[i]["quantity"],
+                    'get_total':total
+                    }
+                items.append(item)
+            except:
+                pass
+
+            
+
+    context = {'items':items, 'order':order, 'cartItems':cartItems}
+    return render(request, 'core/cart.html', context)
+
+def checkout(request):
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        items = order.orderitem_set.all()
+        cartItems = order.get_cart_items
+    else:
+        items = []
+        order ={'get_cart_total':0, 'get_cart_items':0}
+        cartItems = order['get_cart_items']
+
+    context = {'items':items, 'order':order, 'cartItems':cartItems}
+    return render(request, 'core/checkout.html', context)
+
+def updateItem(request):
+     data = json.loads(request.body)
+     productId = data['productId']
+     action = data['action']
+
+     print('Action:', action)
+     print('productId:', productId)
+     customer = request.user.customer
+     product = Product.objects.get(id=productId)
+     order, created = Order.objects.get_or_create(customer=customer, complete=False)
+     orderItem, created = OrderItem.objects.get_or_create(order=order, product=product) 
+
+     if action == 'add':
+        orderItem.quantity = (orderItem.quantity + 1)
+     elif action == 'remove':
+        orderItem.quantity = (orderItem.quantity - 1)
+     orderItem.save()
+     if orderItem.quantity <=0:
+        orderItem.delete()
+
+     return JsonResponse('Item was added', safe=False)
+
+def processOrder(request):
+    body_unicode = request.body.decode('utf-8')
+    body = json.loads(body_unicode)
+
+    # Assuming you are passing the user's ID in the request
+    user_id = body['user_id']
+
+    # Update the order status to complete
+    order = Order.objects.get(customer__user__id=user_id, complete=False)
+    order.complete = True
+    order.save()
+
+    # Clear the user's cart
+    order.orderitem_set.all().delete()
+
+    return JsonResponse('Payment Complete', safe=False)
+
+
+

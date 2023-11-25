@@ -70,6 +70,51 @@
     </script>
     {#    About section#}
 
+
+    {#    About section#}
+ 
+    <style>
+    .input-panel 
+    {
+        background-color: #f5f5f5;
+        padding: 40px;
+        height: 400px; /* Increase the height to your desired value */
+    }
+    </style>
+    
+    {# Services section #}
+    <div id="services" class="about-area section-padding" style="padding: 10px 0; padding-top: 80px; margin-bottom: 0px">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 col-sn-5 col-xs-8 wow fadeInLeft" data-wow-delay="0.2s">
+                    <div class="about-left">
+                        <h2 class="section-title">Services</h2>
+                        <div class="line"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-8 col-sm-8 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-1 box-services">
+                    <!-- Add your content for the 'Services' section here -->
+                    <div style="margin-bottom: 40px;"></div>
+    
+                    <!-- List of Services as Blue Buttons -->
+                    <div class="service-buttons">
+                        <div style="margin-bottom: 30px;">
+                            <a href="/store" class="btn btn-primary btn-lg">Bitcoin Trading</a>
+                        </div>
+                        
+                        
+                        <div style="margin-bottom: 30px;"><button class="btn btn-primary btn-lg">Market Anlysis</button></div>
+                        <!-- Add more services as needed -->
+                    </div>
+                    <!-- Add more content as needed -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
     <div id="about" class="about-area section-padding">
         <div class="container">
             <div class="row">
@@ -199,13 +244,14 @@
         }
     </style>
 </head>
-<body>
-    <div id="contact" class="contact-area section-padding">
+
+<div id="reachout" class="about-area section-padding" style="padding: 80px 0; padding-top: 50px; margin-bottom: 0px">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <div class="section-header text-center">
-                    <h2>ABOUT US</h2>
+            <div class="col-md-7 col-sn-8 col-xs-12 wow fadeInLeft" data-wow-delay="0.2s">
+                <div class="about-left">
+                    <h2 class="section-title">About Us</h2>
+                    <div class="line"></div>
                 </div>
             </div>
         </div>
@@ -215,8 +261,13 @@
                 <div class="welcome-text">
                     <div class="name-area wow fadeInDown" data-wow-delay="0.2s">
                         <h1 id="highlightText"></h1>
-                        <!-- Add the Contact Us button -->
-                        <a href="{% url 'contact_us' %}" class="contact-button">Contact Us</a>
+                        <!-- Add the Contact Us button with a blue background color -->
+                        <a href="{% url 'contact_us' %}" class="custom-btn" style="background-color: #007bff; font-weight: bold; margin-top: 0px;">Contact Us</a>
+
+                        
+
+                        <!-- Add Quick Survey button with styling -->
+                        <a href="{% url 'contact_us' %}" class="custom-btn" style="background-color: #007bff; font-weight: bold; margin-top: 0px; margin-left: 10px;">Quick Survey</a>
                     </div>
                 </div>
             </div>
@@ -226,25 +277,49 @@
 
 
 
+
+
 </body>
 </html>
-    <script>
-        // JavaScript to create and style the container for ABOUT US
-        document.addEventListener("DOMContentLoaded", function () {
-            // Select the ABOUT US container element
-            var aboutContainer = document.getElementById("about-container");
+<script>
+    // JavaScript to create and style the container for ABOUT US
+    document.addEventListener("DOMContentLoaded", function () {
+// Select the ABOUT US container element
+var aboutContainer = document.getElementById("about-container");
 
-            // Set the ABOUT US container's styles
-            aboutContainer.style.background = "#f9f9f9"; // Background color
-            aboutContainer.style.padding = "20px"; // Padding
-            aboutContainer.style.textAlign = "justify"; // Justify text
+// Set the ABOUT US container's styles
+aboutContainer.style.marginTop = "50px"; // Add space between the container and the heading
+aboutContainer.style.marginLeft = "-200px"; // Move the container to the left
+aboutContainer.style.background = "#f9f9f9"; // Background color
+aboutContainer.style.padding = "20px"; // Padding
+aboutContainer.style.textAlign = "justify"; // Justify text
 
-            // Add the ABOUT US information to the container
-            aboutContainer.innerHTML = `
-                <p>Welcome to CryptoSphere, your gateway to a world of digital financial possibilities. CryptoSphere is a state-of-the-art cryptocurrency exchange designed to empower users to trade, invest, and transact with confidence in the dynamic realm of blockchain and digital assets. With our user-friendly interface, robust security features, and a wide range of supported cryptocurrencies, we aim to make cryptocurrency trading accessible, secure, and rewarding. Join us in shaping the future of finance.</p>
-            `;
+// Add the ABOUT US information to the container
+aboutContainer.innerHTML = `
+    <p>Welcome to CryptoSphere, your gateway to a world of digital financial possibilities. CryptoSphere is a state-of-the-art cryptocurrency exchange designed to empower users to trade, invest, and transact with confidence in the dynamic realm of blockchain and digital assets. With our user-friendly interface, robust security features, and a wide range of supported cryptocurrencies, we aim to make cryptocurrency trading accessible, secure, and rewarding. Join us in shaping the future of finance.</p>
+`;
+
+
+});
+
+</script>
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Select the buttons by their class name
+        var serviceButtons = document.querySelectorAll(".service-buttons button");
+
+        // Add a click event listener to each button
+        serviceButtons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                // Show a pop-up when the button is clicked
+                alert("Please login or sign up to access this feature.");
+            });
         });
-    </script>
+    });
+</script>
 </body>
 </html>
 

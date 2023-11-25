@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +12,6 @@
             position: relative;
             color: rgb(229, 242, 243);
         }
-
         footer {
             text-align: center;
             padding: 0.1px 0;
@@ -26,7 +24,6 @@
         
        
 
-
         h1 {
             text-align: center;
             padding: 20px 0;
@@ -36,7 +33,6 @@
             background-color: rgba(0, 0, 0, 0.7);
             margin: 0;
         }
-
         .content {
             max-width: 750px;
             margin: 0 auto;
@@ -48,12 +44,10 @@
             position: relative;
             z-index: 1;
         }
-
         .row {
             display: flex;
             flex-wrap: wrap;
         }
-
         .popup {
             width: 48%;
             margin-bottom: 20px;
@@ -68,18 +62,15 @@
             margin-right: 2%;
             border: 2px solid black;
         }
-
         .popup:hover {
             transform: scale(1.1);
         }
-
         h2 {
             color: #3f51b5;
             border-bottom: 2px solid #3f51b5;
             text-align: center;
             font-size: 1.2em;
         }
-
         .topic-text {
             line-height: 1.6;
             font-size: 14px;
@@ -87,25 +78,39 @@
             font-family: Calibri, sans-serif;
             text-align: justify;
         }
-
         #blockchain-definition,
         #pros-and-cons-of-blockchain,
         #benefits-of-blockchains {
             order: 1;
         }
-
         #security,
         #how-are-blockchains-used,
         #bitcoin-vs-blockchain {
             order: 2;
         }
     </style>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var homeLink = document.getElementById("homeLink");
+
+        function isUserLoggedIn() {
+            return {% if user.is_authenticated %}true{% else %}false{% endif %};
+        }
+
+        function goToHome() {
+            if (isUserLoggedIn()) {
+                window.location.href = "{% url 'index' %}";
+            } else {
+                window.location.href = "{% url 'home' %}";
+            }
+        }
+
+        homeLink.addEventListener("click", goToHome);
+    });
+</script>
 </head>
-
 <body>
-
     <h1>Blockchain Information</h1>
-
     <div class="content">
         <div class="row">
             <a href="https://www.investopedia.com/terms/b/blockchain.asp#toc-what-is-a-blockchain" class="popup" id="blockchain-definition">
@@ -114,7 +119,6 @@
                     A blockchain is a distributed database or ledger shared among a computer network's nodes. They are best known for their crucial role in cryptocurrency systems for maintaining a secure and decentralized record of transactions, but they are not limited to cryptocurrency uses. Blockchains can be used to make data in any industry immutable—the term used to describe the inability to be altered. It consists of a chain of blocks, each containing a list of transactions. The data in a blockchain is stored across a network of computers, making it resistant to tampering and censorship.
                 </div>
             </a>
-
             <a href="https://www.investopedia.com/terms/b/blockchain.asp#toc-is-blockchain-secure" class="popup" id="security" target="_blank">
                 <h2>Is Blockchain Secure?</h2>
                 <div class="topic-text">
@@ -122,7 +126,6 @@
                 </div>
             </a>
         </div>
-
         <div class="row">
             <a href="https://www.investopedia.com/terms/b/blockchain.asp#toc-how-are-blockchains-used" class="popup" id="how-are-blockchains-used" target="_blank">
                 <h2>How Are Blockchains Used?</h2>
@@ -133,7 +136,6 @@
                     <small>Source: IBM. “IBM Food Trust.”</small>
                 </div>
             </a>
-
             <a href="https://www.investopedia.com/terms/b/blockchain.asp#toc-pros-and-cons-of-blockchain" class="popup" id="pros-and-cons-of-blockchain" target="_blank">
                 <h2>Pros and Cons of Blockchain</h2>
                 <div class="topic-text">
@@ -146,7 +148,6 @@
                 </div>
             </a>
         </div>
-
         <div class="row">
             <a href="https://www.investopedia.com/terms/b/blockchain.asp#toc-bitcoin-vs-blockchain" class="popup" id="bitcoin-vs-blockchain" target="_blank">
                 <h2>Bitcoin vs. Blockchain</h2>
@@ -154,7 +155,6 @@
                     Blockchain technology was first outlined in 1991 by Stuart Haber and W. Scott Stornetta, two researchers who wanted to implement a system where document timestamps could not be tampered with. But it wasn’t until almost two decades later, with the launch of Bitcoin in January 2009, that blockchain had its first real-world application.
                 </div>
             </a>
-
             <a href="https://www.investopedia.com/terms/b/blockchain.asp#toc-benefits-of-blockchains" class="popup" id="benefits-of-blockchains" target="_blank">
                 <h2>Benefits of Blockchains</h2>
                 <div class="topic-text">
@@ -162,13 +162,13 @@
                     <br>
                     Transactions on the blockchain network are approved by thousands of computers and devices. This removes almost all people from the verification process, resulting in less human error and an accurate record of information. Even if a computer on the network were to make a computational mistake, the error would only be made to one copy of the blockchain and not be accepted by the rest of the network.
                     <br>
-
                 </div>
             </a>
         </div>
-    <footer>
-            <p><a href="{% url 'home' %}" style="color: white;">Go to Home</a></p>
-    </body>
+   <footer>
+        <p><a id="homeLink" href="#" style="color: white;">Go to Home</a></p>
     </footer>
-
+ </body>
 </html>
+ 
+has context menu

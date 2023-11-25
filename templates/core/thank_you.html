@@ -1,8 +1,10 @@
 <!-- thank_you.html -->
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thank You!</title>
     <style>
         body {
@@ -43,6 +45,7 @@
         a:hover {
             text-decoration: underline;
         }
+
         .login-button {
             display: inline-block;
             padding: 10px 20px;
@@ -58,12 +61,33 @@
             background-color: #0056b3;
         }
     </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var homeLink = document.getElementById("homeLink");
+
+            function isUserAuthenticated() {
+                // Read the data attribute to determine if the user is authenticated
+                var isAuthenticated = homeLink.getAttribute("data-is-authenticated");
+                return isAuthenticated === "true";
+            }
+
+            function goToHome() {
+                if (isUserAuthenticated()) {
+                    window.location.href = "{% url 'index' %}";  // Redirect to index if logged in
+                } else {
+                    window.location.href = "{% url 'home' %}";  // Redirect to home if not logged in
+                }
+            }
+
+            homeLink.addEventListener("click", goToHome);
+        });
+    </script>
 </head>
 <body>
     <div class="container">
         <h2>Thank You!</h2>
         <p>Your message has been submitted successfully.</p>
-        <a href="{% url 'home' %}" class="login-button">OK</a>
+        <a id="homeLink" href="#" class="login-button" data-is-authenticated="{% if user.is_authenticated %}true{% else %}false{% endif %}">OK</a>
         <!-- You can add additional content or redirect users here -->
     </div>
 </body>

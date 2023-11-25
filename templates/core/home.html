@@ -3,10 +3,10 @@
 {% load static %}
 
 {% block content %}
-   <div id="home" class="banner-area section-padding" style="position: relative;">
+   
+<div id="home" class="banner-area section-padding" style="position: relative;">
     <video id="background-video" loop autoplay muted style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; object-fit: cover;">
         <source src="{% static 'Background_Video.mp4' %}" type="video/mp4">
-        <!-- You can add multiple source elements for different video formats (e.g., WebM, Ogg) -->
     </video>
        <div class="bg-overlay" style="background-color: rgba(0, 0, 0, 0.5); position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></div>
     <div class="container">
@@ -15,7 +15,6 @@
                 <div class="welcome-text">
                     <div class="name-area wow fadeInDown" data-wow-delay="0.2s">
                         <h1 id="highlightText"></h1>
-
                     </div>
                 </div>
             </div>
@@ -23,83 +22,133 @@
     </div>
 </div>
 
-
-
-    <style>
-        /* Add your CSS styles here */
-        #home {
-            background-color: rgba(0, 0, 0, 0.5); /* Adjust the alpha value for background opacity */
-        }
-
-        #highlightText {
-            color: #fff; /* Change the text color for visibility */
-        }
-
-        /* Add more styles as needed */
-    </style>
-
-    <script>
-        var sentences = [
-            "Welcome to the Crypto World!!",
-            "Trade with Confidence, Trade with Us"
-        ];
-        var element = document.getElementById("highlightText");
-        var sentenceIndex = 0;
-        var wordIndex = 0;
-
-        function updateText() {
-            if (sentenceIndex < sentences.length) {
-                var words = sentences[sentenceIndex].split(" ");
-                if (wordIndex < words.length) {
-                    element.textContent = words.slice(0, wordIndex + 1).join(" ");
-                    wordIndex++;
-                } else {
-                    setTimeout(function () {
-                        sentenceIndex++;
-                        wordIndex = 0;
-                    }, 500); // Delay for 1 second before moving to the next sentence
-                }
-            } else {
-                element.textContent = "";
-                sentenceIndex = 0;
-            }
-        }
-
-        // Call the function to start the animation
-        setInterval(updateText, 250); // Change word every 500 milliseconds (0.5 second)
-    </script>
-    {#    About section#}
-
-    <style>
-    .input-panel {
-        background-color: #f5f5f5;
-        padding: 40px;
-        height: 400px; /* Increase the height to your desired value */
+<style>
+    /* Add your CSS styles here */
+    #home {
+        background-color: rgba(0, 0, 0, 0.5); /* Adjust the alpha value for background opacity */
     }
+
+    #highlightText {
+        color: #fff; /* Change the text color for visibility */
+    }
+
+    /* Add more styles as needed */
 </style>
+
+<script>
+    var sentences = [
+        "Welcome to the Crypto World!!",
+        "Trade with Confidence, Trade with Us"
+    ];
+    var element = document.getElementById("highlightText");
+    var sentenceIndex = 0;
+    var wordIndex = 0;
+    function updateText() 
+    {
+        if (sentenceIndex < sentences.length) {
+            var words = sentences[sentenceIndex].split(" ");
+            if (wordIndex < words.length) {
+                element.textContent = words.slice(0, wordIndex + 1).join(" ");
+                wordIndex++;
+            } else {
+                setTimeout(function () {
+                    sentenceIndex++;
+                    wordIndex = 0;
+                }, 500); // Delay for 1 second before moving to the next sentence
+            }
+        } else {
+            element.textContent = "";
+            sentenceIndex = 0;
+        }
+    }
+    setInterval(updateText, 250); // Change word every 500 milliseconds (0.5 second)
+</script>
+    {#    About section#}
+ 
+<style>
+.input-panel 
+{
+    background-color: #f5f5f5;
+    padding: 40px;
+    height: 400px; /* Increase the height to your desired value */
+}
+</style>
+
+{# Services section #}
+<div id="services" class="about-area section-padding" style="padding: 10px 0; padding-top: 80px; margin-bottom: 0px">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 col-sn-5 col-xs-8 wow fadeInLeft" data-wow-delay="0.2s">
+                <div class="about-left">
+                    <h2 class="section-title">Services</h2>
+                    <div class="line"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-8 col-sm-8 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-1 box-services">
+                <!-- Add your content for the 'Services' section here -->
+                <div style="margin-bottom: 40px;"></div>
+
+                <!-- List of Services as Blue Buttons -->
+                <div class="service-buttons">
+                    <div style="margin-bottom: 30px;">
+                        <div style="margin-bottom: 30px;"><button class="btn btn-primary btn-lg">Bitcoin Trading</button></div>
+                    </div>
+                    
+                    <div style="margin-bottom: 30px;"><button class="btn btn-primary btn-lg">Market Anlysis</button></div>
+                    <!-- Add more services as needed -->
+                </div>
+                <!-- Add more content as needed -->
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div id="about" class="about-area section-padding">
     <div class="container">
         <div class="row">
-            <div class="col-md-7 col-sn-8 col-xs-12 wow fadeInLeft" data-wow-delay="0.2s">
+            <div class="col-md-5 col-sn-5 col-xs-8 wow fadeInLeft" data-wow-delay="0.2s">
                 <div class="about-left">
                     <h2 class="section-title">EXCHANGE YOUR COIN HERE</h2>
-                    <div class="line"></div>
-                    <h4>{{ about.short_description }}</h4>
-                    <p>{{ about.description }}</p>
+                    <div style="margin-bottom: 30px;" class="line"></div>
+                    <style>
+                        /* Define a CSS class for the styled login message */
+                        .styled-login-message {
+                            text-align: center;
+                            padding: 10px;
+                            background-color:whitesmoke; /* Light red background color */
+                            border: 1px solid #f5c6cb; /* Border color */
+                            border-radius: 5px; /* Rounded corners */
+                            color: #721c24; /* Text color */
+                        }
+                    </style>
+                    
+                    <div id="loginMessage" class="styled-login-message">
+                        <h6 id="loginHeader">Please Login/SignUp</h6>
+                        <p id="loginDetails">to access the details of the Crypto</p>
+                    </div>
+                    
+                    <script>
+                        // JavaScript to dynamically add the styled class to the login message
+                        var loginMessage = document.getElementById("loginMessage");
+                        loginMessage.classList.add("styled-login-message");
+                    </script>
+                    
                 </div>
+                
             </div>
             <div class="col-md-5 visible-md visible-lg wow fadeInDown" data-wow-delay="0.6s">
                 <div class="profile">
-                    ---------------------
+                 
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Add a larger panel for user input (a form) -->
-<!-- Add a larger panel for user input (a form) -->
+
 <div class="input-panel">
     <div class="container">
         <div class="row">
@@ -189,7 +238,7 @@
 
 
 
-   <!DOCTYPE html>
+  
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -212,13 +261,14 @@
         }
     </style>
 </head>
-<body>
-    <div id="contact" class="contact-area section-padding">
+
+<div id="reachout" class="about-area section-padding" style="padding: 80px 0; padding-top: 50px; margin-bottom: 0px">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <div class="section-header text-center">
-                    <h2>ABOUT US</h2>
+            <div class="col-md-7 col-sn-8 col-xs-12 wow fadeInLeft" data-wow-delay="0.2s">
+                <div class="about-left">
+                    <h2 class="section-title">About Us</h2>
+                    <div class="line"></div>
                 </div>
             </div>
         </div>
@@ -228,8 +278,13 @@
                 <div class="welcome-text">
                     <div class="name-area wow fadeInDown" data-wow-delay="0.2s">
                         <h1 id="highlightText"></h1>
-                        <!-- Add the Contact Us button -->
-                        <a href="{% url 'contact_us' %}" class="contact-button">Contact Us</a>
+                        <!-- Add the Contact Us button with a blue background color -->
+                        <a href="{% url 'contact_us' %}" class="custom-btn" style="background-color: #007bff; font-weight: bold; margin-top: 0px;">Contact Us</a>
+
+                        
+
+                        <!-- Add Quick Survey button with styling -->
+                        <a href="{% url 'contact_us' %}" class="custom-btn" style="background-color: #007bff; font-weight: bold; margin-top: 0px; margin-left: 10px;">Quick Survey</a>
                     </div>
                 </div>
             </div>
@@ -239,25 +294,48 @@
 
 
 
+
 </body>
 </html>
     <script>
         // JavaScript to create and style the container for ABOUT US
         document.addEventListener("DOMContentLoaded", function () {
-            // Select the ABOUT US container element
-            var aboutContainer = document.getElementById("about-container");
+    // Select the ABOUT US container element
+    var aboutContainer = document.getElementById("about-container");
 
-            // Set the ABOUT US container's styles
-            aboutContainer.style.background = "#f9f9f9"; // Background color
-            aboutContainer.style.padding = "20px"; // Padding
-            aboutContainer.style.textAlign = "justify"; // Justify text
+    // Set the ABOUT US container's styles
+    aboutContainer.style.marginTop = "50px"; // Add space between the container and the heading
+    aboutContainer.style.marginLeft = "-200px"; // Move the container to the left
+    aboutContainer.style.background = "#f9f9f9"; // Background color
+    aboutContainer.style.padding = "20px"; // Padding
+    aboutContainer.style.textAlign = "justify"; // Justify text
 
-            // Add the ABOUT US information to the container
-            aboutContainer.innerHTML = `
-                <p>Welcome to CryptoSphere, your gateway to a world of digital financial possibilities. CryptoSphere is a state-of-the-art cryptocurrency exchange designed to empower users to trade, invest, and transact with confidence in the dynamic realm of blockchain and digital assets. With our user-friendly interface, robust security features, and a wide range of supported cryptocurrencies, we aim to make cryptocurrency trading accessible, secure, and rewarding. Join us in shaping the future of finance.</p>
-            `;
-        });
+    // Add the ABOUT US information to the container
+    aboutContainer.innerHTML = `
+        <p>Welcome to CryptoSphere, your gateway to a world of digital financial possibilities. CryptoSphere is a state-of-the-art cryptocurrency exchange designed to empower users to trade, invest, and transact with confidence in the dynamic realm of blockchain and digital assets. With our user-friendly interface, robust security features, and a wide range of supported cryptocurrencies, we aim to make cryptocurrency trading accessible, secure, and rewarding. Join us in shaping the future of finance.</p>
+    `;
+
+
+});
+
     </script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Select the buttons by their class name
+        var serviceButtons = document.querySelectorAll(".service-buttons button");
+
+        // Add a click event listener to each button
+        serviceButtons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                // Show a pop-up when the button is clicked
+                alert("Please login or sign up to access this feature.");
+            });
+        });
+    });
+</script>
+
 </body>
 </html>
 

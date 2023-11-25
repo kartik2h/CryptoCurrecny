@@ -12,6 +12,11 @@ urlpatterns = [
     path('login/', views.loginPage, name="login"),
     path('logout/', views.logoutView, name="logout"),
     path('home/', views.index, name='index'),
+    path('checkout/', views.checkout, name='checkout'),
+    path('store/', views.store, name='store'),
+    path('cart/', views.cart, name='cart'),
+    path('update_item/', views.updateItem, name='update_item'),
+    path('process_order/', views.processOrder, name='process_order'),
     #path('index1/', views.index1, name='index1'),
      # Forgot password
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name='core/reset_password.html'), name='reset_password'),

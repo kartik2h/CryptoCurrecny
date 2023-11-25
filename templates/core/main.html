@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>PAYMENT GATEWAY</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
+    <script type="text/javascript">
+        var user = '{{ request.user }}';
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        var csrftoken = getCookie('csrftoken');
+
+        function getCookie(name) {
+            var cookieArr = document.cookie.split(";");
+            for (var i = 0; i < cookieArr.length; i++) {
+                var cookiepair = cookieArr[i].split("=");
+                if (name == cookiepair[0].trim()) {
+                    return decodeURIComponent(cookiepair[1]);
+                }
+            }
+            return null;
+        }
+
+        var cart = JSON.parse(getCookie('cart'));
+        console.log('cart:', cart);
+    </script>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="navbar-brand" href="#" id="homeLink">HOME</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Exchange Page </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Drop down regarding quick view of currency rate model
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+            </ul>
+            <div class="form-inline my-2 my-lg-0">
+                <a href="#" class="btn btn-warning">Login</a>
+
+                <a href="{% url 'cart' %}">
+                    <img id="cart-icon" src="{% static 'cart.png' %}">
+                </a>
+                <p id="cart-total">{{ cartItems }}</p>
+
+            </div>
+        </nav>
+
+        <div class="container">
+            <br>
+            {% block content %}
+
+
+            {% endblock content %}
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+        <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+
+        <!-- Add this script inside the <script> tag in your HTML -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var homeLink = document.getElementById("homeLink");
+
+                function isUserAuthenticated() {
+                    // Check if the user is authenticated
+                    return '{{ request.user.is_authenticated }}' === 'True';
+                }
+
+                function goToHome() {
+                    if (isUserAuthenticated()) {
+                        // Redirect to index if logged in
+                        window.location.href = "{% url 'index' %}";
+                    } else {
+                        // Redirect to home if not logged in
+                        window.location.href = "{% url 'home' %}";
+                    }
+                }
+
+                // Attach the click event to the homeLink
+                homeLink.addEventListener("click", goToHome);
+            });
+        </script>
+
+</body>
+</html>

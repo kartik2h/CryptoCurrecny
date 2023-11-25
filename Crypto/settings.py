@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+import paypalrestsdk
  
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -126,3 +127,9 @@ EMAIL_HOST_USER = 'cryptosphereinnovators@gmail.com'
 EMAIL_HOST_PASSWORD = 'ujca alms xfad sjrw'
 EMAIL_USE_TLS = True
 
+# Set up PayPal SDK with your credentials
+paypalrestsdk.configure({
+    "mode": "sandbox",  
+    "client_id": "AQy95O26n113nv6Ep5JwaTDjrhaEArAqWXl0acCBrA3PD4kW4GOyfp3fFTkhOC2qXMPKncuAE8x8HNwp",
+    "client_secret": "EIYtcDo35XeXiH1ZIB5qfR0okvEXFoKPGyDlAjwoWnQNNC0WqtYY-krV9K2LY3aGjKgG4suILWwdmIso",
+})
