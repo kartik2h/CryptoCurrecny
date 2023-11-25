@@ -165,6 +165,7 @@
                 <form>
                     <div class="form-group">
                         <style>
+
                             body {
                                 font-family: Arial, sans-serif;
                             }
@@ -190,45 +191,55 @@
                             .positive {
                                 color: green;
                             }
+                            .table-scroll {
+                                max-height: 400px !important;
+                                overflow-y: auto !important;
+                                margin-bottom: 20px; /* Optional: space below the table */
+                                border-radius: 5px; /* Optional: if you want rounded corners */
+                                box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); /* Optional: for some depth */
+                            }
                         </style>
                         <!--<label for="coinAmount">Enter the amount of coins:</label>-->
                        <!-- <input type="text" class="form-control" id="coinAmount" name="coinAmount">-->
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th>Price</th>
-                                    <th>1h %</th>
-                                    <th>24h %</th>
-                                    <th>7d %</th>
-                                    <th>Market Cap</th>
-                                    <th>Volume(24h)</th>
-                                    <th>Circulating Supply</th>
-                                </tr>
-                            </thead>
-                           <tbody>
-                                {% for crypto in cryptos %}
-                                <tr onclick="window.location='{% url 'crypto_detail' crypto.symbol %}';">
-                                    <td>{{ forloop.counter }}</td>
-                                    <td>{{ crypto.name }} {{ crypto.symbol }}</td>
-                                    <td>{{ crypto.price }}</td>
-                                    <td class="{% if crypto.percent_change_1h < 0 %}negative{% else %}positive{% endif %}">{{ crypto.percent_change_1h }}%</td>
-                                    <td class="{% if crypto.percent_change_24h < 0 %}negative{% else %}positive{% endif %}">{{ crypto.percent_change_24h }}%</td>
-                                    <td class="{% if crypto.percent_change_7d < 0 %}negative{% else %}positive{% endif %}">{{ crypto.percent_change_7d }}%</td>
-                                    <td>${{ crypto.market_cap}}</td>
-                                    <td>${{ crypto.volume_24h }}</td>
-                                    <td>{{ crypto.circulating_supply }} {{ crypto.symbol }}</td>
-                                </tr>
-                                {% empty %}
-                                <tr>
-                                    <td colspan="10">No cryptocurrency data available.</td>
-                                </tr>
-                                {% endfor %}
-                           </tbody>
-                    </table>
-
+                        <div class="table-scroll">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Price</th>
+                                            <th>1h %</th>
+                                            <th>24h %</th>
+                                            <th>7d %</th>
+                                            <th>Market Cap</th>
+                                            <th>Volume(24h)</th>
+                                            <th>Circulating Supply</th>
+                                        </tr>
+                                    </thead>
+                                   <tbody>
+                                        {% for crypto in cryptos %}
+                                        <tr onclick="window.location='{% url 'crypto_detail' crypto.symbol %}';">
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ crypto.name }} {{ crypto.symbol }}</td>
+                                            <td>{{ crypto.price }}</td>
+                                            <td class="{% if crypto.percent_change_1h < 0 %}negative{% else %}positive{% endif %}">{{ crypto.percent_change_1h }}%</td>
+                                            <td class="{% if crypto.percent_change_24h < 0 %}negative{% else %}positive{% endif %}">{{ crypto.percent_change_24h }}%</td>
+                                            <td class="{% if crypto.percent_change_7d < 0 %}negative{% else %}positive{% endif %}">{{ crypto.percent_change_7d }}%</td>
+                                            <td>{{ crypto.market_cap}}</td>
+                                            <td>{{ crypto.volume_24h }}</td>
+                                            <td>{{ crypto.circulating_supply }} {{ crypto.symbol }}</td>
+                                        </tr>
+                                        {% empty %}
+                                        <tr>
+                                            <td colspan="10">Please Login to view the data</td>
+                                        </tr>
+                                        {% endfor %}
+                                   </tbody>
+                            </table>
+                         </div>
                     </div>
+
+
                     <!--<button type="submit" class="btn btn-primary">Submit</button>-->
                 </form>
             </div>
