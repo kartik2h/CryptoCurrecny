@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import UserProfile, ContactMessage
+from .models import UserProfile, ContactMessage, OrderHistory
 
 
 class CreateUserForm(UserCreationForm):
@@ -46,3 +46,8 @@ class ContactForm(forms.ModelForm):
     class Meta:
         model = ContactMessage
         fields = ['name', 'email', 'message']
+
+class OrderHistoryForm:
+    class Meta:
+        model = OrderHistory
+        fields = ['user', 'name', 'email', 'transaction_date', 'price']

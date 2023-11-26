@@ -42,6 +42,7 @@
             <small>Paypal Options</small>
             <div id="paypal-button-container"></div>
             <!--<button id = "make-payment">Make Payment</button>-->
+            <button class="btn btn-info btn-block" id="make-payment">Make Payment</button>
         </div>
 
     </div>
@@ -86,60 +87,83 @@
 
         });
     }
-    
+
     }).render('#paypal-button-container');
-</script>
+    var total = '{{ order.get_cart_total }}';
+    var form = document.getElementById('form');
+    var userFormData = {
+        'name': null,
+        'email': null,
+    };
 
-
-<script type="text/javascript">
-    //var total= '{{order.get_cart_total}}'
-   var form = document.getElementById('form');
-var userFormData = {  // Declare userFormData in the outer scope
-    'name': null,
-    'email': null,
-};
-
-form.addEventListener('submit', function(e){
-    e.preventDefault();
-    console.log('Form Submitted');
-    document.getElementById('form-button').classList.add('hidden');
-    document.getElementById('payment-info').classList.remove('hidden');
-
-    // Fetch user data from form fields
-    var name = document.querySelector('input[name="name"]').value;
-    var email = document.querySelector('input[name="email"]').value;
-
-    // Update userFormData with form values
-    userFormData.name = name;
-    userFormData.email = email;
-});
-
-document.getElementById('make-payment').addEventListener('click', function(e){
-    submitFormData();
-});
-
-function submitFormData() {
-    console.log('Payment Button clicked');
-
-    var url = '/process_order/';
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken,
-        },
-        body: JSON.stringify({
-            'form': userFormData,
-            'user_id': '{{ request.user.id }}'  // Add the user's ID here
-        })
-    })
-    .then((response) => response.json())
-    .then((data) => {
-        console.log('Success:', data);
-        alert('Transaction complete');
-        window.location.href = "{% url 'store' %}";
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        console.log('Form Submitted');
+        document.getElementById('form-button').classList.add('hidden');
+        document.getElementById('payment-info').classList.remove('hidden');
     });
-}
+
+    // Add an event listener to the Make Payment button
+    document.getElementById('make-payment').addEventListener('click', function () {
+        // Fetch user data from form fields
+        var name = document.querySelector('input[name="name"]').value;
+        var email = document.querySelector('input[name="email"]').value;
+
+        // Update userFormData with form values
+        userFormData.name = name;
+        userFormData.email = email;
+
+        // Call the function to submit form data
+        submitFormData();
+    });
+
+    function submitFormData() {
+        console.log('Payment Button clicked');
+
+        var url = '/process_order/';
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken'),  // Include the correct way to get CSRF token
+            },
+            body: JSON.stringify({
+                'form': {
+                    'name': userFormData.name,
+                    'email': userFormData.email,
+                    'total': total,  // Include the 'total' value here
+                }
+            })
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log('Success:', data);
+                alert('Transaction complete. You can view your order history.');
+                // Redirect the user to the order history page with the name parameter
+                {#window.location.href = '/orderhistory/?name=' + userFormData.name;#}
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+
+    // Function to get the CSRF token from cookies
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
 
 </script>
 {% endblock content %}

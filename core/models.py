@@ -118,3 +118,16 @@ def create_customer(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_customer(sender, instance, **kwargs):
     instance.customer.save()
+
+
+
+
+class OrderHistory(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    transaction_date = models.DateTimeField(auto_now_add=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.name} - {self.transaction_date}"

@@ -310,22 +310,68 @@ def updateItem(request):
 
      return JsonResponse('Item was added', safe=False)
 
+# def processOrder(request):
+#     body_unicode = request.body.decode('utf-8')
+#     body = json.loads(body_unicode)
+#
+#
+#     # Assuming you are passing the user's ID in the request
+#     user_id = body['user_id']
+#     if request.method == 'POST':
+#         data = json.loads(request.body)
+#         name = data['form']['name']
+#         email = data['form']['email']
+#         total = data['form']['total']
+#
+#
+#
+#
+#         # Save the order details to OrderHistory model
+#         order_history = OrderHistory.objects.create(
+#             name=name,
+#             email=email,
+#             price=total
+#         )
+#
+#     # Update the order status to complete
+#     order = Order.objects.get(customer__user__id=user_id, complete=False)
+#     order.complete = True
+#     order.save()
+#
+#     # Clear the user's cart
+#     order.orderitem_set.all().delete()
+#
+#     return JsonResponse('Payment Complete', safe=False)
+
+@login_required
+def orderhistory(request):
+    order_history_data = OrderHistory.objects.all().order_by('-transaction_date')
+    context = {'order_history': order_history_data}
+    print(order_history_data)  # Add this line to print data to console
+    return render(request, 'core/orderhistory.html', context)
+
+@csrf_exempt
 def processOrder(request):
-    body_unicode = request.body.decode('utf-8')
-    body = json.loads(body_unicode)
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        name = data['form']['name']
+        email = data['form']['email']
+        total = data['form']['total']
 
-    # Assuming you are passing the user's ID in the request
-    user_id = body['user_id']
+        # Print values for debugging
+        print('Name:', name)
+        print('Email:', email)
+        print('Total:', total)
 
-    # Update the order status to complete
-    order = Order.objects.get(customer__user__id=user_id, complete=False)
-    order.complete = True
-    order.save()
+        # Save the order details to OrderHistory model
+        order_history = OrderHistory.objects.create(
+            name=name,
+            email=email,
+            price=total
+        )
 
-    # Clear the user's cart
-    order.orderitem_set.all().delete()
-
-    return JsonResponse('Payment Complete', safe=False)
-
+        return JsonResponse({'message': 'Payment Complete'}, safe=False)
+    else:
+        return JsonResponse({'message': 'Invalid request method'}, status=400, safe=False)
 
 
