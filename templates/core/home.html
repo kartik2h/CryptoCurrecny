@@ -90,14 +90,10 @@
                 <!-- Add your content for the 'Services' section here -->
                 <div style="margin-bottom: 40px;"></div>
 
-                <!-- List of Services as Blue Buttons -->
                 <div class="service-buttons">
-                    <div style="margin-bottom: 30px;">
-                        <div style="margin-bottom: 30px;"><button class="btn btn-primary btn-lg">Bitcoin Trading</button></div>
-                    </div>
-                    
-                    <div style="margin-bottom: 30px;"><button class="btn btn-primary btn-lg">Market Anlysis</button></div>
-                    <!-- Add more services as needed -->
+                    <button id="bitcoinTradingBtn" class="btn btn-primary btn-lg">Bitcoin Trading</button> </br>
+                </br><button id="marketAnalysisBtn" class="btn btn-primary btn-lg">Market Analysis</button>
+                    <!-- Other buttons -->
                 </div>
                 <!-- Add more content as needed -->
             </div>
@@ -333,18 +329,27 @@
 
 
 <script>
+    
     document.addEventListener("DOMContentLoaded", function () {
-        // Select the buttons by their class name
-        var serviceButtons = document.querySelectorAll(".service-buttons button");
+    // Select the buttons by their unique IDs
+    var bitcoinTradingBtn = document.getElementById("bitcoinTradingBtn");
+    var marketAnalysisBtn = document.getElementById("marketAnalysisBtn");
 
-        // Add a click event listener to each button
-        serviceButtons.forEach(function (button) {
-            button.addEventListener("click", function () {
-                // Show a pop-up when the button is clicked
-                alert("Please login or sign up to access this feature.");
-            });
-        });
+    // Add click event listeners to each button
+    bitcoinTradingBtn.addEventListener("click", function () {
+        // For "Bitcoin Trading" button, show the pop-up
+        alert("Please login or sign up to access Bitcoin Trading.");
     });
+
+    marketAnalysisBtn.addEventListener("click", function () {
+        // For "Market Analysis" button, redirect to the specified URL
+        window.location.href = "https://cointelegraph.com/category/market-analysis";
+    });
+});
+
+
+
+
 </script>
 
 </body>
