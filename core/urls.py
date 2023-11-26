@@ -4,6 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 
+from .views import feedback_view
 
 urlpatterns = [
     path('', views.home_view, name='home'),
@@ -31,6 +32,7 @@ urlpatterns = [
     path('crypto/<str:symbol>/', views.crypto_detail, name='crypto_detail'),
     path('technology/', views.tech_view, name='tech_page'),
     path('investment/', views.invest_view, name='invest'),
+    path('feedback/', views.feedback_view, name='feedback'),
 
 
 ]

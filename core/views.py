@@ -1,3 +1,6 @@
+import os
+import pandas as pd
+
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -10,8 +13,10 @@ import datetime
 from django.views.decorators.csrf import csrf_exempt
 import paypalrestsdk 
 from django.core.mail import send_mail
+
+from Crypto import settings
 from .models import *
-from .forms import CreateUserForm, UserProfileForm, ContactForm
+from .forms import CreateUserForm, UserProfileForm, ContactForm, FeedbackForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import PasswordResetForm
 import yagmail
@@ -72,7 +77,8 @@ def loginPage(request):
 
 def logoutView(request):
     logout(request)
-    return redirect('home')
+
+    return redirect('feedback')
 
 
 def send_email(subject, contents, to_email):
@@ -375,3 +381,37 @@ def processOrder(request):
         return JsonResponse({'message': 'Invalid request method'}, status=400, safe=False)
 
 
+def feedback_view(request):
+    if request.method == 'POST':
+        form = FeedbackForm(request.POST)
+        if form.is_valid():
+            # Save the form data to Excel
+            save_to_excel(form.cleaned_data)
+            return redirect('home')
+        else:
+            print(form.errors)  # Check for form errors in the console
+    else:
+        form = FeedbackForm()
+
+    return render(request, 'core/feedback.html', {'form': form})
+
+def save_to_excel(data):
+    excel_file_path = os.path.join(settings.MEDIA_ROOT, 'feedback_data.xlsx')
+
+    try:
+        df = pd.read_excel(excel_file_path)
+    except FileNotFoundError:
+        # If the file doesn't exist, create a new DataFrame
+        df = pd.DataFrame()
+
+    # Convert the form data to a DataFrame
+    new_data = pd.DataFrame([data])
+
+    # Concatenate the new data with the existing DataFrame
+    df = pd.concat([df, new_data], ignore_index=True)
+
+    try:
+        # Save the DataFrame to Excel
+        df.to_excel(excel_file_path, index=False)
+    except PermissionError as e:
+        print(f"PermissionError: {e}")

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoSphere Feedback Form</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 185vh;
+            margin: 0;
+            background-size: cover;
+        }
+
+        .title-box {
+            background-color: skyblue;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            z-index: 2;
+            margin-bottom: 10px; /* Adjusted margin-bottom for spacing */
+        }
+
+        h2 {
+            margin: 0;
+        }
+
+        .feedback-box {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 15px; /* Further reduced padding */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            position: relative;
+            z-index: 1;
+            margin-top: 10px; /* Added margin-top for spacing */
+            margin-bottom: 10px; /* Adjusted margin-bottom for spacing */
+        }
+
+        /* Updated styles for form fields */
+        label {
+            display: block;
+            margin-bottom: 6px; /* Further reduced margin-bottom for spacing */
+        }
+
+        select, input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 6px; /* Further reduced margin-bottom for spacing */
+            box-sizing: border-box;
+        }
+
+        /* Added styles for submit button */
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 10px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="title-box">
+        <h2>CryptoSphere Feedback Form</h2>
+    </div>
+    <div class="feedback-box">
+    <form method="post" action="{% url 'feedback' %}">
+        {% csrf_token %}
+
+        <label for="{{ form.email.id_for_label }}">Email:</label>
+        {{ form.email }}
+        <br>
+
+        <label for="{{ form.name.id_for_label }}">Name:</label>
+        {{ form.name }}
+        <br>
+
+        <h3>Is this your first visit to the website?</h3>
+        <select id="{{ form.first_visit.id_for_label }}" name="{{ form.first_visit.name }}">
+            {% for value, label in form.fields.first_visit.choices %}
+                <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+        </select>
+        <br>
+
+        <h3>Were you able to find what you needed?</h3>
+        <select id="{{ form.found_needed.id_for_label }}" name="{{ form.found_needed.name }}">
+            {% for value, label in form.fields.found_needed.choices %}
+                <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+        </select>
+        <br>
+
+        <h3>What is the primary reason for your visit to the website?</h3>
+        <select id="{{ form.reason.id_for_label }}" name="{{ form.reason.name }}">
+            {% for value, label in form.fields.reason.choices %}
+                <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+        </select>
+        <br>
+
+        <h3>How easy is it to find information on the site?</h3>
+        <select id="{{ form.ease_of_use.id_for_label }}" name="{{ form.ease_of_use.name }}">
+            {% for value, label in form.fields.ease_of_use.choices %}
+                <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+        </select>
+        <br>
+
+        <h3>What is the likelihood that you will return to the site?</h3>
+        <select id="{{ form.likelihood_to_return.id_for_label }}" name="{{ form.likelihood_to_return.name }}">
+            {% for value, label in form.fields.likelihood_to_return.choices %}
+                <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+        </select>
+        <br>
+
+        <h3>Please provide any additional comments or suggestions.</h3>
+        {{ form.comments }}
+        <br>
+
+        <button type="submit">Submit Feedback</button>
+    </form>
+</div>
+</body>
+</html>

@@ -131,3 +131,49 @@ class OrderHistory(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.transaction_date}"
+
+
+
+class Feedback(models.Model):
+    name = models.CharField(max_length=255, blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+
+    FIRST_VISIT_CHOICES = [
+        ('Yes', 'Yes'),
+        ('No', 'No'),
+    ]
+    first_visit = models.CharField(max_length=3, choices=FIRST_VISIT_CHOICES)
+
+    FOUND_NEEDED_CHOICES = [
+        ('Yes', 'Yes'),
+        ('No', 'No'),
+    ]
+    found_needed = models.CharField(max_length=3, choices=FOUND_NEEDED_CHOICES)
+
+    REASON_CHOICES = [
+        ('social media', 'Social Media'),
+        ('advertising', 'Advertising'),
+        ('google search', 'Google Search'),
+        ('friend', 'Friend'),
+    ]
+    reason = models.CharField(max_length=15, choices=REASON_CHOICES)
+
+    EASE_OF_USE_CHOICES = [
+        ('veryEasy', 'Very Easy'),
+        ('easy', 'Easy'),
+        ('average', 'Average'),
+        ('difficult', 'Difficult'),
+        ('veryDifficult', 'Very Difficult'),
+    ]
+    ease_of_use = models.CharField(max_length=15, choices=EASE_OF_USE_CHOICES)
+
+    LIKELIHOOD_TO_RETURN_CHOICES = [
+        ('extremelyLikely', 'Extremely Likely'),
+        ('veryLikely', 'Very Likely'),
+        ('moderatelyLikely', 'Moderately Likely'),
+        ('slightlyLikely', 'Slightly Likely'),
+        ('unlikelyToReturn', 'Unlikely to Return'),
+    ]
+    likelihood_to_return = models.CharField(max_length=20, choices=LIKELIHOOD_TO_RETURN_CHOICES)
+
+    comments = models.TextField(blank=True, null=True)
