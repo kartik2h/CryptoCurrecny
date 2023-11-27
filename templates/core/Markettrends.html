@@ -1,6 +1,7 @@
-[1:49 p.m.] Sai Renuka Telu
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,16 +15,7 @@
             position: relative;
             color: black;
         }
-        footer {
-            text-align: center;
-            padding: 0.1px 0;
-            background-color: #333;
-            color: white;
-            position: center;
-            bottom: 0;
-            width: 100%;
-        }
-        
+
         h1 {
             text-align: center;
             padding: 20px 0;
@@ -33,6 +25,7 @@
             background-color: rgba(0, 0, 0, 0.7);
             margin: 0;
         }
+
         .content {
             max-width: 750px;
             margin: 0 auto;
@@ -44,11 +37,13 @@
             position: relative;
             z-index: 1;
         }
+
         .row {
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
         }
+
         .topic {
             width: 48%;
             margin-bottom: 20px;
@@ -63,15 +58,18 @@
             display: block;
             border: 2px solid black;
         }
+
         .topic:hover {
             transform: scale(1.1);
         }
+
         h2 {
             color: #3f51b5;
             border-bottom: 2px solid #3f51b5;
             text-align: center;
             font-size: 1.2em;
         }
+
         .topic-text {
             line-height: 1.6;
             font-size: 14px;
@@ -79,10 +77,12 @@
             font-family: Calibri, sans-serif;
             text-align: justify;
         }
+
         .centered-topic {
             width: 50%;
             text-align: center;
         }
+
         .image-box {
             text-align: center;
             position: relative;
@@ -90,11 +90,13 @@
             width: 100%;
             margin-top: 15px;
         }
+
         .image-box img {
             object-fit: cover;
             width: 100%;
             border-radius: 10px;
         }
+
         .image-overlay {
             position: absolute;
             bottom: 0;
@@ -106,9 +108,11 @@
             font-size: 10px;
             border-bottom-left-radius: 10px;
         }
+
         .topic.centered-topic a {
             text-decoration: none;
         }
+
         .video-box {
             width: 48%;
             margin-bottom: 20px;
@@ -123,9 +127,11 @@
             display: block;
             border: 2px solid black;
         }
+
         .video-box:hover {
             transform: scale(1.1);
         }
+
         .video-link {
             display: block;
             text-align: center;
@@ -133,15 +139,18 @@
             color: #333;
             text-decoration: none;
         }
+
         .video-preview {
             width: 100%;
             border-radius: 10px;
         }
+
         .video-news-container {
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
         }
+
         .topic-video {
             width: 48%;
             margin-bottom: 20px;
@@ -156,14 +165,40 @@
             display: block;
             border: 2px solid black;
         }
+
         .topic-video:hover {
             transform: scale(1.1);
         }
+
         .topic-video a {
             text-decoration: none;
         }
+
+        .find-out-more-button {
+            background-color: #3f51b5;
+            color: #fff;
+            padding: 8px; /* Adjusted padding */
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none;
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+        }
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #333;
+    color: white;
+    width: 100%;
+    /* Remove the position: fixed; property */
+    bottom: 0;
+}
+
     </style>
-    <script>
+
+<script>
     document.addEventListener("DOMContentLoaded", function() {
         var homeLink = document.getElementById("homeLink");
 
@@ -184,36 +219,54 @@
 </script>
 </head>
 <body>
+
     <h1>Cryptocurrency Market Trends</h1>
+
     <div class="content">
         <div class="row">
             <div class="topic">
                 <h2>Cryptocurrency Market Size & Share Analysis - Growth Trends & Forecasts</h2>
+                <div class="image-box">
+                    <img src="{% static 'ig1.jpeg' %}" alt="Topic Image">
+                </div>
                 <div class="topic-text">
                     The Report Covers Global Crypto Market Analysis & Trends. Cryptocurrencies are segmented based on the market capitalization of cryptocurrencies (Bitcoin, Ethereum, Ripple, Bitcoin Cash, Cardano, and others) and cryptocurrency adoption by geography (Middle East & Africa, Americas, Europe, APAC). The report offers market size and forecast values for the Cryptocurrency Market in USD million for the above segments.
                 </div>
             </div>
+
             <a href="https://www.mordorintelligence.com/industry-reports/cryptocurrency-market" class="topic" target="_blank">
                 <h2>Cryptocurrency Market Analysis</h2>
+                <div class="image-box">
+                    <img src="{% static 'ig2.jpeg' %}" alt="Topic Image">
+                </div>
                 <div class="topic-text">
                     The Cryptocurrency Market size in terms of transaction value is USD 1,330.43 billion in the current year and a CAGR of 30.40% during the forecast period. Cryptocurrencies, which are designed to be used for peer-to-peer transactions without being liable to any government or a central bank, are the latest financial innovations, explored not only for the reasons of their existence but also for potential risks and opportunities in the financial industry. There are thousands of cryptocurrencies with various design goals.
                 </div>
             </a>
         </div>
+
         <div class="row">
             <a href="https://www.mordorintelligence.com/industry-reports/cryptocurrency-market" class="topic" target="_blank">
                 <h2>Cryptocurrency Market Trends</h2>
+                <div class="image-box">
+                    <img src="{% static 'ig3.jpeg' %}" alt="Topic Image">
+                </div>
                 <div class="topic-text">
                     With the evolving nature of this market with new cryptocurrencies created every week, it is difficult to know how big the cryptocurrency market is. A wide scope of market exchanges for cryptocurrency trading, spread across the globe because of their privacy protection features as well as rapid growth, extreme price volatility, and market illiquidity add to the complexity of the cryptocurrency market.
                 </div>
             </a>
+
             <a href="https://www.mordorintelligence.com/industry-reports/cryptocurrency-market" class="topic" target="_blank">
                 <h2>Cryptocurrency Industry Overview</h2>
+                <div class="image-box">
+                    <img src="{% static 'ig4.jpeg' %}" alt="Topic Image">
+                </div>
                 <div class="topic-text">
                     The report includes different segments like coin product developers, mining services, cryptocurrency exchanges, wallet companies, etc., along with a note on recent mergers and acquisitions that shaped the ecosystem. Some of the major players are Bitfinex, Quantstamp Inc, CryptoMove Inc, Coinbase and Huobi Global Source: https://www.mordorintelligence.com/industry-reports/cryptocurrency-market.
                 </div>
             </a>
         </div>
+
         <div class="video-news-container">
             <div class="video-box">
                 <a href="https://www.youtube.com/watch?v=Iqv90kTHSe4" class="video-link" target="_blank">
@@ -221,20 +274,30 @@
                     <img src="https://img.youtube.com/vi/Iqv90kTHSe4/mqdefault.jpg" alt="Video Preview" class="video-preview">
                 </a>
             </div>
+
             <div class="topic-video">
                 <a href="https://www.mordorintelligence.com/industry-reports/cryptocurrency-market" target="_blank">
                     <h2>Cryptocurrency Market News</h2>
+                    <div class="image-box">
+                        <img src="{% static 'ig5.jpeg' %}" alt="Topic Image">
+                    </div>
                     <div class="topic-text">
                         In August 2023, Securitize Agrees to Buy Crypto Wealth Manager Onramp to Expand RIA Services. With this acquisition Asset tokenization firm Securitize aims to extend its offering to registered investment advisors (RIAs) and Onramp will be operating as a subsidiary of Securitize to integrate Securitize products into its existing service. In September 2022, Ethereum underwent a significant transition known as "the Merge" which changed its technology to cut carbon emissions by more than 99.9 percent.
                     </div>
                 </a>
             </div>
-           <footer>
-        <p><a id="homeLink" href="#" style="color: white;">Go to Home</a></p>
-    </footer>
+        </div>
+
+        <div id="find-out-more-bottom">
+            <a href="https://www.mordorintelligence.com/industry-reports/cryptocurrency-market" class="find-out-more-button">Find Out More</a>
         </div>
     </div>
-   
+
+    <footer>
+        <p><a id="homeLink" href="#" style="color: white;">Go to Home</a></p>
+    </footer>
+
 </body>
 </html>
- 
+
+

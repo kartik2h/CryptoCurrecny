@@ -1,5 +1,7 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,18 +13,8 @@
             padding: 0;
             position: relative;
             color: rgb(229, 242, 243);
+            min-height: 100vh;
         }
-        footer {
-            text-align: center;
-            padding: 0.1px 0;
-            background-color: #333;
-            color: white;
-            position: center;
-            bottom: 0;
-            width: 100%;
-        }
-        
-       
 
         h1 {
             text-align: center;
@@ -33,6 +25,24 @@
             background-color: rgba(0, 0, 0, 0.7);
             margin: 0;
         }
+
+        #button-container {
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        #investment-button,
+        #trading-techniques-button {
+            background-color: #3f51b5;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 0 10px;
+        }
+
         .content {
             max-width: 750px;
             margin: 0 auto;
@@ -43,14 +53,17 @@
             color: #333;
             position: relative;
             z-index: 1;
+            margin-bottom: 60px;
         }
+
         .row {
             display: flex;
             flex-wrap: wrap;
         }
+
         .popup {
             width: 48%;
-            margin-bottom: 20px;
+            margin-bottom: 50px;
             cursor: pointer;
             transition: transform 0.3s;
             background-color: #fff;
@@ -62,15 +75,18 @@
             margin-right: 2%;
             border: 2px solid black;
         }
+
         .popup:hover {
             transform: scale(1.1);
         }
+
         h2 {
             color: #3f51b5;
             border-bottom: 2px solid #3f51b5;
             text-align: center;
             font-size: 1.2em;
         }
+
         .topic-text {
             line-height: 1.6;
             font-size: 14px;
@@ -78,68 +94,104 @@
             font-family: Calibri, sans-serif;
             text-align: justify;
         }
-        #blockchain-definition,
-        #pros-and-cons-of-blockchain,
-        #benefits-of-blockchains {
-            order: 1;
+
+        .popup img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 10px;
         }
-        #security,
-        #how-are-blockchains-used,
-        #bitcoin-vs-blockchain {
-            order: 2;
+
+        .find-out-more-button {
+            background-color: #3f51b5;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none;
+            display: block;
+            margin-top: 10px;
+            text-align: center;
         }
+
+        #find-out-more-bottom {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+       footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #333;
+    color: white;
+    /* Remove position: fixed; */
+    /* bottom: 0; */
+    width: 100%;
+}
     </style>
+
     <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var homeLink = document.getElementById("homeLink");
+        document.addEventListener("DOMContentLoaded", function () {
+            var homeLink = document.getElementById("homeLink");
 
-        function isUserLoggedIn() {
-            return {% if user.is_authenticated %}true{% else %}false{% endif %};
-        }
-
-        function goToHome() {
-            if (isUserLoggedIn()) {
-                window.location.href = "{% url 'index' %}";
-            } else {
-                window.location.href = "{% url 'home' %}";
+            function isUserLoggedIn() {
+                return {% if user.is_authenticated %}true{% else %}false{% endif %};
             }
-        }
 
-        homeLink.addEventListener("click", goToHome);
-    });
-</script>
+            function goToHome() {
+                if (isUserLoggedIn()) {
+                    window.location.href = "{% url 'index' %}";
+                } else {
+                    window.location.href = "{% url 'home' %}";
+                }
+            }
+
+            if (homeLink) {
+                homeLink.addEventListener("click", goToHome);
+            }
+        });
+    </script>
 </head>
+
 <body>
     <h1>Blockchain Information</h1>
+
+    <div id="button-container">
+        <button id="investment-button" onclick="window.location.href='https://www.investopedia.com/investing-4427685'">Investment</button>
+        <button id="trading-techniques-button" onclick="window.location.href='https://www.investopedia.com/trading-4427765'">Trading Techniques</button>
+    </div>
+
     <div class="content">
         <div class="row">
             <a href="https://www.investopedia.com/terms/b/blockchain.asp#toc-what-is-a-blockchain" class="popup" id="blockchain-definition">
+                <img src="{% static 'img1.jpeg' %}" alt="Blockchain Security Preview Image">
                 <h2>What is Blockchain?</h2>
                 <div class="topic-text">
-                    A blockchain is a distributed database or ledger shared among a computer network's nodes. They are best known for their crucial role in cryptocurrency systems for maintaining a secure and decentralized record of transactions, but they are not limited to cryptocurrency uses. Blockchains can be used to make data in any industry immutable—the term used to describe the inability to be altered. It consists of a chain of blocks, each containing a list of transactions. The data in a blockchain is stored across a network of computers, making it resistant to tampering and censorship.
+                    A blockchain is a distributed database or ledger shared among a computer network's nodes. They are best known for their crucial role in cryptocurrency systems for maintaining a secure and decentralized record of transactions, but they are not limited to cryptocurrency uses.
                 </div>
             </a>
             <a href="https://www.investopedia.com/terms/b/blockchain.asp#toc-is-blockchain-secure" class="popup" id="security" target="_blank">
+                <img src="{% static 'img2.jpeg' %}" alt="Blockchain Security Preview Image">
                 <h2>Is Blockchain Secure?</h2>
                 <div class="topic-text">
-                    Blockchain technology achieves decentralized security and trust in several ways. To begin with, new blocks are always stored linearly and chronologically. That is, they are always added to the “end” of the blockchain. After a block has been added to the end of the blockchain, previous blocks cannot be changed. A change in any data changes the hash of the block it was in. Because each block contains the previous block's hash, a change in one would change the following blocks. The network would reject an altered block because the hashes would not match.
+                    Blockchain technology achieves decentralized security and trust in several ways. To begin with, new blocks are always stored linearly and chronologically.
                 </div>
             </a>
         </div>
         <div class="row">
             <a href="https://www.investopedia.com/terms/b/blockchain.asp#toc-how-are-blockchains-used" class="popup" id="how-are-blockchains-used" target="_blank">
+                <img src="{% static 'backg.jpeg' %}" alt="Blockchain Security Preview Image">
                 <h2>How Are Blockchains Used?</h2>
-                <div class="topic-text">
-                    As we now know, blocks on Bitcoin’s blockchain store transactional data. Today, more than 23,000 other cryptocurrency systems are running on a blockchain. But it turns out that blockchain is a reliable way of storing data about other types of transactions.
-                    Some companies experimenting with blockchain include Walmart, Pfizer, AIG, Siemens, and Unilever, among others. For example, IBM has created its Food Trust blockchain to trace the journey that food products take to get to their locations.
+                <div class="topic-text">As we now know, blocks on Bitcoin’s blockchain store transactional data. Today, more than 23,000 other cryptocurrency systems are running on a blockchain. But it turns out that blockchain is a reliable way of storing data about other types of transactions.
                     <br>
                     <small>Source: IBM. “IBM Food Trust.”</small>
                 </div>
             </a>
             <a href="https://www.investopedia.com/terms/b/blockchain.asp#toc-pros-and-cons-of-blockchain" class="popup" id="pros-and-cons-of-blockchain" target="_blank">
+                <img src="{% static 'img4.jpeg' %}" alt="Blockchain Security Preview Image">
                 <h2>Pros and Cons of Blockchain</h2>
                 <div class="topic-text">
-                    For all of its complexity, blockchain’s potential as a decentralized form of record-keeping is almost without limit. From greater user privacy and heightened security to lower processing fees and fewer errors, blockchain technology may very well see applications beyond those outlined above. But there are also some disadvantages.
                     <ul>
                         <li>Improved accuracy by removing human involvement in verification</li>
                         <li>Cost reductions by eliminating third-party verification</li>
@@ -148,26 +200,38 @@
                 </div>
             </a>
         </div>
+
         <div class="row">
             <a href="https://www.investopedia.com/terms/b/blockchain.asp#toc-bitcoin-vs-blockchain" class="popup" id="bitcoin-vs-blockchain" target="_blank">
+                <img src="{% static 'img5.jpeg' %}" alt="Blockchain Security Preview Image">
                 <h2>Bitcoin vs. Blockchain</h2>
                 <div class="topic-text">
-                    Blockchain technology was first outlined in 1991 by Stuart Haber and W. Scott Stornetta, two researchers who wanted to implement a system where document timestamps could not be tampered with. But it wasn’t until almost two decades later, with the launch of Bitcoin in January 2009, that blockchain had its first real-world application.
+                    Blockchain technology was first outlined in 1991 by Stuart Haber and W. Scott Stornetta, two researchers who wanted to implement a system where document timestamps could not be tampered with.
                 </div>
             </a>
             <a href="https://www.investopedia.com/terms/b/blockchain.asp#toc-benefits-of-blockchains" class="popup" id="benefits-of-blockchains" target="_blank">
+                <img src="{% static 'bit.jpg' %}" alt="Blockchain Security Preview Image">
                 <h2>Benefits of Blockchains</h2>
                 <div class="topic-text">
                     <strong>Accuracy of the Chain</strong>
                     <br>
-                    Transactions on the blockchain network are approved by thousands of computers and devices. This removes almost all people from the verification process, resulting in less human error and an accurate record of information. Even if a computer on the network were to make a computational mistake, the error would only be made to one copy of the blockchain and not be accepted by the rest of the network.
+                    Transactions on the blockchain network are approved by thousands of computers and devices.
                     <br>
                 </div>
             </a>
         </div>
-   <footer>
+
+        <div id="find-out-more-bottom">
+            <button class="find-out-more-button" onclick="window.location.href='https://www.investopedia.com/terms/b/blockchain.asp#toc'">Find Out More</button>
+        </div>
+    </div>
+
+    <footer>
         <p><a id="homeLink" href="#" style="color: white;">Go to Home</a></p>
     </footer>
- </body>
+</body>
+
 </html>
- 
+
+
+blockchain
