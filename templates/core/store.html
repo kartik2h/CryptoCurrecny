@@ -12,22 +12,8 @@
 
                     <button data-product={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
                    
-                   {% with price_found=False %}
-        <!-- Loop through the product_price_map to find the matching price -->
-        {% for name, price in product_price_map.items %}
-            {% if name == product.name %}
-                <h4 style="display: inline-block; float: right">
-                    <strong>${{ price|floatformat:2 }}</strong>
-                </h4>
-                <!-- Set the flag to True as price is found -->
-                {% with price_found=True %}
-                {% endwith %}
-            {% endif %}
-        {% endfor %}
-
-        <!-- Display 'Price not available' if not found -->
-
-    {% endwith %}
+                    <h4 style="display: inline-block; float: right"><strong>
+					${{ product.price|floatformat:2 }}</strong></h4>
                 </div>
             </div>
         {% endfor %}

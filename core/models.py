@@ -96,11 +96,12 @@ class Order(models.Model):
         return total
 
 class OrderItem(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True, null = True)
-    order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank=True, null = True)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True, null=True)
+    order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank=True, null=True)
     quantity = models.IntegerField(default=0, null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
 
+    # This method calculates the total for this order item
     @property
     def get_total(self):
         total = self.product.price * self.quantity
@@ -108,30 +109,6 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return str(self.product.name)
-
-
-@receiver(post_save, sender=User)
-def create_customer(sender, instance, created, **kwargs):
-    if created:
-        Customer.objects.create(user=instance)
-
-@receiver(post_save, sender=User)
-def save_customer(sender, instance, **kwargs):
-    instance.customer.save()
-
-
-
-
-class OrderHistory(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    name = models.CharField(max_length=255)
-    email = models.EmailField()
-    transaction_date = models.DateTimeField(auto_now_add=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-
-    def __str__(self):
-        return f"{self.name} - {self.transaction_date}"
-
 
 
 class Feedback(models.Model):
@@ -177,3 +154,23 @@ class Feedback(models.Model):
     likelihood_to_return = models.CharField(max_length=20, choices=LIKELIHOOD_TO_RETURN_CHOICES)
 
     comments = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return str(self.name)
+
+
+@receiver(post_save, sender=User)
+def create_customer(sender, instance, created, **kwargs):
+    if created:
+        Customer.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_customer(sender, instance, **kwargs):
+    instance.customer.save()
+
+class OrderHistory(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    total = models.DecimalField(max_digits=10, decimal_places=2)
+    transaction_time = models.DateTimeField(auto_now_add=True)

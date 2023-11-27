@@ -18,7 +18,7 @@ urlpatterns = [
     path('cart/', views.cart, name='cart'),
     path('update_item/', views.updateItem, name='update_item'),
     path('process_order/', views.processOrder, name='process_order'),
-    path('orderhistory/', views.orderhistory, name='orderhistory'),
+    #path('orderhistory/', views.orderhistory, name='orderhistory'),
     #path('index1/', views.index1, name='index1'),
      # Forgot password
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name='core/reset_password.html'), name='reset_password'),
@@ -33,6 +33,7 @@ urlpatterns = [
     path('technology/', views.tech_view, name='tech_page'),
     path('investment/', views.invest_view, name='invest'),
     path('feedback/', views.feedback_view, name='feedback'),
+    path('orderhistory/', views.order_history, name='order_history'),
 
 
 ]

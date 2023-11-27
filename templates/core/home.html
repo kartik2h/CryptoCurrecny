@@ -285,13 +285,13 @@
                 <div class="welcome-text">
                     <div class="name-area wow fadeInDown" data-wow-delay="0.2s">
                         <h1 id="highlightText"></h1>
-                        <!-- Add the Contact Us button with a blue background color -->
+
                         <a href="{% url 'contact_us' %}" class="custom-btn" style="background-color: #007bff; font-weight: bold; margin-top: 0px;">Contact Us</a>
 
                         
 
-                        <!-- Add Quick Survey button with styling -->
-                        <a href="{% url 'contact_us' %}" class="custom-btn" style="background-color: #007bff; font-weight: bold; margin-top: 0px; margin-left: 10px;">Quick Survey</a>
+
+                        <a href="{% url 'home' %}" id="quickSurveyBtn" class="custom-btn" style="background-color: #007bff; font-weight: bold; margin-top: 0px; margin-left: 10px;">Quick Survey</a>
                     </div>
                 </div>
             </div>
@@ -334,16 +334,20 @@
     // Select the buttons by their unique IDs
     var bitcoinTradingBtn = document.getElementById("bitcoinTradingBtn");
     var marketAnalysisBtn = document.getElementById("marketAnalysisBtn");
+    var quickSurveyBtn= document.getElementById("quickSurveyBtn");
 
-    // Add click event listeners to each button
     bitcoinTradingBtn.addEventListener("click", function () {
-        // For "Bitcoin Trading" button, show the pop-up
+
         alert("Please login or sign up to access Bitcoin Trading.");
     });
 
     marketAnalysisBtn.addEventListener("click", function () {
-        // For "Market Analysis" button, redirect to the specified URL
+
         window.location.href = "https://cointelegraph.com/category/market-analysis";
+    });
+
+       quickSurveyBtn.addEventListener("click", function () {
+           alert("Please login or sign up to provide Feedback.");
     });
 });
 

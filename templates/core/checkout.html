@@ -1,5 +1,3 @@
-<!-- File: store/templates/store/checkout.html -->
-
 {% extends 'core/main.html' %}
 {% load static %}
 {% block content %}
@@ -15,24 +13,7 @@
                         <input required class="form-control" type="email" name="email" placeholder="Email..">
                     </div>
                 </div>
-                
-                <!--<div id="shipping-info">
-                    <hr>
-                    <p>Shipping Information:</p>
-                    <hr>
-                    <div class="form-field">
-                        <input class="form-control" type="text" name="address" placeholder="Address..">
-                    </div>
-                    <div class="form-field">
-                        <input class="form-control" type="text" name="city" placeholder="City..">
-                    </div>
-                    <div class="form-field">
-                        <input class="form-control" type="text" name="state" placeholder="State..">
-                    </div>
-                    <div class="form-field">
-                        <input class="form-control" type="text" name="zipcode" placeholder="Zip code..">
-                    </div>
-                </div>-->
+
                 <hr>
                 <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
             </form>
@@ -41,8 +22,7 @@
         <div class="box-element hidden" id="payment-info">
             <small>Paypal Options</small>
             <div id="paypal-button-container"></div>
-            <!--<button id = "make-payment">Make Payment</button>-->
-            <button class="btn btn-info btn-block" id="make-payment">Make Payment</button>
+
         </div>
 
     </div>
@@ -64,6 +44,8 @@
             {% endfor %}
             <h5>Items: {{order.get_cart_items}}</h5>
             <h5>Total: {{order.get_cart_total|floatformat:2}}</h5>
+
+            <button id="confirm-payment-btn" class="btn btn-success" style="display: none;">Confirm Payment</button>
         </div>
     </div>
 </div>
@@ -78,43 +60,46 @@
                         value: parseFloat(total).toFixed(2)
                     }
                 }]
-
             });
         },
-    onApprove: function(data,actions){
-        return actions.order.capture().then(function(details){
-            submitFormData();
+        onApprove: function(data, actions){
+            return actions.order.capture().then(function(details){
 
-        });
-    }
+                document.getElementById('confirm-payment-btn').style.display = 'block';
 
+
+                submitFormData();
+            });
+        }
     }).render('#paypal-button-container');
-    var total = '{{ order.get_cart_total }}';
+</script>
+
+<script type="text/javascript">
+    //var total= '{{order.get_cart_total}}'
     var form = document.getElementById('form');
     var userFormData = {
         'name': null,
         'email': null,
     };
 
-    form.addEventListener('submit', function (e) {
+    form.addEventListener('submit', function(e){
         e.preventDefault();
         console.log('Form Submitted');
         document.getElementById('form-button').classList.add('hidden');
         document.getElementById('payment-info').classList.remove('hidden');
-    });
 
-    // Add an event listener to the Make Payment button
-    document.getElementById('make-payment').addEventListener('click', function () {
-        // Fetch user data from form fields
+
         var name = document.querySelector('input[name="name"]').value;
         var email = document.querySelector('input[name="email"]').value;
 
-        // Update userFormData with form values
+
         userFormData.name = name;
         userFormData.email = email;
+    });
 
-        // Call the function to submit form data
-        submitFormData();
+    document.getElementById('confirm-payment-btn').addEventListener('click', function() {
+
+        window.location.href = "{% url 'order_history' %}";
     });
 
     function submitFormData() {
@@ -125,45 +110,20 @@
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': getCookie('csrftoken'),  // Include the correct way to get CSRF token
+                'X-CSRFToken': csrftoken,
             },
             body: JSON.stringify({
-                'form': {
-                    'name': userFormData.name,
-                    'email': userFormData.email,
-                    'total': total,  // Include the 'total' value here
-                }
+                'form': userFormData,
+                'user_id': '{{ request.user.id }}'
             })
         })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log('Success:', data);
-                alert('Transaction complete. You can view your order history.');
-                // Redirect the user to the order history page with the name parameter
-                {#window.location.href = '/orderhistory/?name=' + userFormData.name;#}
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+        .then((response) => response.json())
+        .then((data) => {
+            console.log('Success:', data);
+            alert('Transaction complete');
+            window.location.href = "{% url 'order_history' %}?name=" + userFormData.name + "&email=" + userFormData.email + "&total=" + '{{ order.get_cart_total|floatformat:2 }}';
+
+        });
     }
-
-    // Function to get the CSRF token from cookies
-    function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = cookies[i].trim();
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-
-
 </script>
 {% endblock content %}

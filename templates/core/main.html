@@ -45,55 +45,31 @@
         console.log('cart:', cart);
     </script>
 
-    <style>
-        .navbar {
-            background-color: black;
-            z-index: 10;
-        }
-
-        #cart-icon {
-            max-width: 20px; /* Set the maximum width to control the size */
-            height: auto; /* Maintain the aspect ratio */
-        }
-    </style>
+<style>
+    .navbar {
+        background-color: dodgerblue;
+        z-index: 10;
+    }
+</style>
 
 </head>
 <body>
-        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: black;">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'home' %}">HOME</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-
-                    </li>
-                    <li class="nav-item dropdown">
-{#                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
-{#                            Currency View#}
-{#                        </a>#}
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Action2</a>
-                            <div class="dropdown-divider"></div>
-                            <!-- Add more dropdown items if needed -->
-                        </div>
-                    </li>
-                </ul>
-                <div class="form-inline">
-                    <a href="{% url 'orderhistory' %}" class="btn btn-warning mr-2">Order History</a>
-
-                    <a href="#" class="btn btn-warning mr-2">Exchange</a>
-                    <a href="{% url 'cart' %}" class="btn btn-light">
-                        <img id="cart-icon" src="{% static 'cart.png' %}" alt="Cart">
-                        <span id="cart-total">{{cartItems}}</span>
-                    </a>
-                </div>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: cornflowerblue;">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="navbar-brand" href="#" id="homeLink">HOME</a>
+                </li>
+            </ul>
+            <div class="form-inline my-2 my-lg-0">
+                <a href="{% url 'cart' %}">
+                    <img id="cart-icon" src="{% static 'cart.png' %}">
+                </a>
+                <p id="cart-total">{{ cartItems }}</p>
             </div>
         </div>
     </nav>
+    
 
         <div class="container">
             <br>
