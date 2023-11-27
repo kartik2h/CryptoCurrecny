@@ -66,16 +66,10 @@
             return actions.order.capture().then(function(details){
 
                 document.getElementById('confirm-payment-btn').style.display = 'block';
-
-
-                submitFormData();
             });
         }
     }).render('#paypal-button-container');
-</script>
 
-<script type="text/javascript">
-    //var total= '{{order.get_cart_total}}'
     var form = document.getElementById('form');
     var userFormData = {
         'name': null,
@@ -89,17 +83,20 @@
         document.getElementById('payment-info').classList.remove('hidden');
 
 
-        var name = document.querySelector('input[name="name"]').value;
-        var email = document.querySelector('input[name="email"]').value;
-
-
-        userFormData.name = name;
-        userFormData.email = email;
     });
 
     document.getElementById('confirm-payment-btn').addEventListener('click', function() {
 
-        window.location.href = "{% url 'order_history' %}";
+        var name = document.querySelector('input[name="name"]').value;
+        var email = document.querySelector('input[name="email"]').value;
+
+        // Update userFormData with form values
+        userFormData.name = name;
+        userFormData.email = email;
+
+        // Call the function to submit form data
+        submitFormData();
+
     });
 
     function submitFormData() {
@@ -113,17 +110,22 @@
                 'X-CSRFToken': csrftoken,
             },
             body: JSON.stringify({
-                'form': userFormData,
-                'user_id': '{{ request.user.id }}'
+                'form': {
+                    'name': userFormData.name,
+                    'email': userFormData.email,
+                    'total': total,  // Include the 'total' value here
+                }
             })
         })
-        .then((response) => response.json())
-        .then((data) => {
-            console.log('Success:', data);
-            alert('Transaction complete');
-            window.location.href = "{% url 'order_history' %}?name=" + userFormData.name + "&email=" + userFormData.email + "&total=" + '{{ order.get_cart_total|floatformat:2 }}';
-
-        });
+            .then((response) => response.json())
+            .then((data) => {
+                console.log('Success:', data);
+                alert('Transaction complete. You can view your order history.');
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     }
+
 </script>
 {% endblock content %}

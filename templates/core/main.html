@@ -59,10 +59,12 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     <a class="navbar-brand" href="#" id="homeLink">HOME</a>
+                    <button class="btn btn-info btn-block" onclick="window.location.href='{% url 'order_history' %}'">Order History</button>
+
                 </li>
             </ul>
             <div class="form-inline my-2 my-lg-0">
-                <a href="{% url 'cart' %}">
+                 <a href="{% url 'cart' %}">
                     <img id="cart-icon" src="{% static 'cart.png' %}">
                 </a>
                 <p id="cart-total">{{ cartItems }}</p>
