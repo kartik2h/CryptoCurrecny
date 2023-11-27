@@ -33,7 +33,7 @@ urlpatterns = [
     path('technology/', views.tech_view, name='tech_page'),
     path('investment/', views.invest_view, name='invest'),
     path('feedback/', views.feedback_view, name='feedback'),
-    path('orderhistory/', views.order_history, name='order_history'),
+    path('orderhistory/', views.orderhistory, name='order_history'),
 
 
 ]

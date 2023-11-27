@@ -1,7 +1,4 @@
-<!-- File: store/templates/store/orderhistory.html -->
-
 {% extends 'core/main.html' %}
-{% load static %}
 {% block content %}
     <div class="container">
         <h2 class="text-center mb-4">Order History</h2>
@@ -12,15 +9,21 @@
                     <tr>
                         <th style="font-size: 18px;">Name</th>
                         <th style="font-size: 18px;">Email</th>
+                        <th style="font-size: 18px;">Transaction Date</th>
                         <th style="font-size: 18px;">Total Amount</th>
+                        <!-- Add more fields if needed -->
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>{{ request.GET.name }}</td>
-                        <td>{{ request.GET.email }}</td>
-                        <td>${{ request.GET.total|floatformat:2 }}</td>
-                    </tr>
+                    {% for order in order_history %}
+                        <tr>
+                            <td>{{ order.name }}</td>
+                            <td>{{ order.email }}</td>
+                            <td>{{ order.transaction_date }}</td>
+                            <td>${{ order.price|floatformat:2 }}</td>
+                            <!-- Add more fields if needed -->
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

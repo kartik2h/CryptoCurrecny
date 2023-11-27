@@ -348,7 +348,7 @@ def feedback_view(request):
 
 
 @login_required
-def order_history(request):
+def orderhistory(request):
     order_history_data = OrderHistory.objects.filter(name__iexact=request.user)
     context = {'order_history': order_history_data}
     #print(order_history_data)  # Add this line to print data to console
