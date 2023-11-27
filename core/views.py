@@ -313,20 +313,20 @@ def updateItem(request):
 
      return JsonResponse('Item was added', safe=False)
 
-def processOrder(request):
-    body_unicode = request.body.decode('utf-8')
-    body = json.loads(body_unicode)
-
-    user_id = body['user_id']
-
-    order = Order.objects.get(customer__user__id=user_id, complete=False)
-    order.complete = True
-    order.save()
-
-
-    order.orderitem_set.all().delete()
-
-    return JsonResponse('Payment Complete', safe=False)
+# def processOrder(request):
+#     body_unicode = request.body.decode('utf-8')
+#     body = json.loads(body_unicode)
+#
+#     user_id = body['user_id']
+#
+#     order = Order.objects.get(customer__user__id=user_id, complete=False)
+#     order.complete = True
+#     order.save()
+#
+#
+#     order.orderitem_set.all().delete()
+#
+#     return JsonResponse('Payment Complete', safe=False)
 
 
 def feedback_view(request):
@@ -347,17 +347,37 @@ def feedback_view(request):
 
 
 
+@login_required
 def order_history(request):
+    order_history_data = OrderHistory.objects.filter(name__iexact=request.user)
+    context = {'order_history': order_history_data}
+    #print(order_history_data)  # Add this line to print data to console
+    return render(request, 'core/orderhistory.html', context)
 
-    user_name = request.POST.get('name')
-    user_email = request.POST.get('email')
-    order_total = 100.0
+@csrf_exempt
+def processOrder(request):
+    print("Received!!")
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        name = data['form']['name']
+        email = data['form']['email']
+        total = data['form']['total']
 
+        # Print values for debugging
+        print('Name:', name)
+        print('Email:', email)
+        print('Total:', total)
 
-    return render(request, 'core/orderhistory.html', {
-        'user_name': user_name,
-        'user_email': user_email,
-        'order_total': order_total,
-    })
+        # Save the order details to OrderHistory model
+        order_history = OrderHistory.objects.create(
+            name=name,
+            email=email,
+            price=total
+        )
+
+        return JsonResponse({'message': 'Payment Complete'}, safe=False)
+    else:
+        return JsonResponse({'message': 'Invalid request method'}, status=400, safe=False)
+
 
 
