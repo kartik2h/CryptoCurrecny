@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.forms import inlineformset_factory
 from django.contrib.auth.forms import UserCreationForm
 from django.http import JsonResponse
+from django.db import transaction
 import json
 import datetime
 from django.views.decorators.csrf import csrf_exempt
@@ -313,20 +314,6 @@ def updateItem(request):
 
      return JsonResponse('Item was added', safe=False)
 
-# def processOrder(request):
-#     body_unicode = request.body.decode('utf-8')
-#     body = json.loads(body_unicode)
-#
-#     user_id = body['user_id']
-#
-#     order = Order.objects.get(customer__user__id=user_id, complete=False)
-#     order.complete = True
-#     order.save()
-#
-#
-#     order.orderitem_set.all().delete()
-#
-#     return JsonResponse('Payment Complete', safe=False)
 
 
 def feedback_view(request):
@@ -375,9 +362,16 @@ def processOrder(request):
             price=total
         )
 
+        # Update the user's shopping cart (Order) to mark it as complete and clear items
+        with transaction.atomic():
+            if request.user.is_authenticated:
+                customer = request.user.customer
+                order, created = Order.objects.get_or_create(customer=customer, complete=False)
+                order.complete = True
+                order.save()
+                order.orderitem_set.all().delete()
+
         return JsonResponse({'message': 'Payment Complete'}, safe=False)
     else:
         return JsonResponse({'message': 'Invalid request method'}, status=400, safe=False)
-
-
 
